@@ -1,4 +1,12 @@
-td{
-    background-color:#4cbdc1;
-    text-align:center;
-  }
+td {
+  text-align: center;
+}
+
+.tr_m {
+  background-color: rgb(158, 131, 156);
+  color: rgb(255, 255, 255);
+}
+
+.tr_s {
+  background-color: rgb(255, 255, 255);
+}
