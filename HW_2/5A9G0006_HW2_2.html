@@ -9,29 +9,35 @@
     <p id="js" align="center" style="font-size: 50px;font-weight: bolder;word-spacing: 30px;line-height: 40px;"></p>
 </body>
 <script>
+    //使用者分別輸出棋盤的寬 長度
     var width = 0
     width = prompt("請輸入棋盤的寬度：")
     var long = 0
     long = prompt("請輸入棋盤的長度：")
     var bool
-
-    for (var i = 0; i < long; i++) {
+    //從行開始
+    for (var i = 1; i <= long; i++) {
+        //偶數行#開頭，奇數行空白開頭
         if (i % 2 == 0) {
             bool = true
         } else {
             bool = false
         }
-        for (var j = 0; j < width; j++) {
+        //從列開始
+        for (var j = 1; j <= width; j++) {
+            //bool為true時就輸出#，否則空白
             if (bool == true) {
+                //修改id="js"元素的HTML內容
                 document.getElementById("js").innerHTML += "#"
             }
             else {
                 document.getElementById("js").innerHTML += "&nbsp"
             }
+            //輸出內容交換
             bool = !bool
         }
+        //換行
         document.getElementById("js").innerHTML += "<br>"
-
     }
 </script>
 
