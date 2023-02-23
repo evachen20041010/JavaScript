@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <p id="js" align="center" style="font-size: 30px;font-weight: bolder;word-spacing: 20px;line-height: 25px;"></p>
+</body>
+<script>
+    var width = 0
+    width = prompt("請輸入棋盤的寬度：")
+    var long = 0
+    long = prompt("請輸入棋盤的長度：")
+    var bool
+
+    for (var i = 0; i < long; i++) {
+        if (i % 2 == 0) {
+            bool = true
+        } else {
+            bool = false
+        }
+        for (var j = 0; j < width; j++) {
+            if (bool == true) {
+                document.getElementById("js").innerHTML += "#"
+            }
+            else {
+                document.getElementById("js").innerHTML += "&nbsp"
+            }
+            bool = !bool
+        }
+        document.getElementById("js").innerHTML += "<br>"
+
+    }
+</script>
+
+</html>
