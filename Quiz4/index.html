@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body style="background-color: blanchedalmond;">
+    <p id="js" align="center" style="font-size: 50px;font-weight: bolder"></p>
+    <img src="./image.png" style="display:block; margin:auto;">
+</body>
+<script>
+    var num = 0
+    num = prompt("請輸入您的成績：")
+    document.getElementById("js").innerHTML = "您的百分制成績為：" + num + "<br>您的等第制成績為："
+    switch (true) {
+        case (num >= 94.5):
+            document.getElementById("js").innerHTML += "A";
+            //alert(num);
+            break;
+        case (num >= 91.0):
+            document.getElementById("js").innerHTML += "A-";
+            //alert(num);
+            break;
+        case (num >= 87.5):
+            document.getElementById("js").innerHTML += "B+";
+            //alert(num);
+            break;
+        case (num >= 84.0):
+            document.getElementById("js").innerHTML += "B";
+            //alert(num);
+            break;
+        case (num >= 80.5):
+            document.getElementById("js").innerHTML += "B-";
+            //alert(num);
+            break;
+        case (num >= 77.0):
+            document.getElementById("js").innerHTML += "C+";
+            //alert(num);
+            break;
+        case (num >= 73.5):
+            document.getElementById("js").innerHTML += "C";
+            //alert(num);
+            break;
+        case (num >= 70.0):
+            document.getElementById("js").innerHTML += "C-";
+            //alert(num);
+            break;
+        case (num >= 66.5):
+            document.getElementById("js").innerHTML += "D+";
+            //alert(num);
+            break;
+        case (num >= 63.0):
+            document.getElementById("js").innerHTML += "D";
+            //alert(num);
+            break;
+        case (num >= 59.5):
+            document.getElementById("js").innerHTML += "D-";
+            //alert(num);
+            break;
+        case (num <= 59.4):
+            document.getElementById("js").innerHTML += "E";
+            //alert(num);
+            break;
+        default:
+            document.getElementById("js").innerHTML = "請重新輸入";
+            break;
+    }
+</script>
+
+</html>
