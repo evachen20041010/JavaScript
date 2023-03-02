@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body style="background-color: blanchedalmond;">
+    <p id="js" align="center" style="font-size: 50px;font-weight: bolder"></p>
+</body>
+<script>
+    function compare1() {
+        alert("無輸入");
+        alert("無輸出");
+        return;
+    }
+
+    function compare2() {
+        alert("無輸入");
+        alert("2");
+        return;
+    }
+
+    function compare3(a) {
+        return a;
+    }
+
+    function compare4(a,b,c) {
+        arr.sort();
+        alert("輸出：\nmax=" + arr[2] + ",min=" + arr[0]);
+        return;
+    }
+
+    function compare5(a,b,c) {
+        arr.sort();
+        alert("輸出：\nmax=" + arr[2] + ",min=" + arr[0] + ",equal=" + arr[1]);
+        return;
+    }
+
+    var num = 0
+    num = prompt("請選擇功能：\n1. 0 輸入 0 輸出\n2. 0 輸入 1 輸出\n3. 1 輸入 1 輸出\n4. 3 輸入 2 輸出 max, min\n5. 3 輸入 3 輸出 max, min, equal")
+    arr = new Array(3);
+    if (num == 1) {
+        compare1();
+    } else if (num == 2) {
+        compare2();
+    } else if (num == 3) {
+        arr[0] = prompt("請輸入一個數");
+        alert("輸出：\n" + compare3(arr[0]));
+    } else if (num == 4) {
+        compare4();
+    } else if (num == 5) {
+        compare5();
+    }
+</script>
+
+</html>

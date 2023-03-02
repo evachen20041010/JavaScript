@@ -1,15 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <title>HW3_5A9G0006</title>
+    <style>
+        TD {
+            FONT-SIZE: 12px;
+            COLOR: #666666;
+            LINE-HEIGHT: 16px;
+        }
+    </style>
+    <SCRIPT type="text/javascript">
+        //定義種類陣列與資料
+        CountyName = new Array("信函", "印刷物", "小包", "明信片", "郵簡")
 
+        //定義詳細種類陣列與資料
+        zoneName = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)")
+
+        //定義價錢陣列與資料
+        price = new Array(22)
+        price[0] = new Array(8, 16, 24, 40, 72, 112, 160)
+
+        //初始種類選擇選單
+        function initCounty() {
+            document.zipCodeForm.type.length = CountyName.length + 1
+
+            for (i = 0; i < CountyName.length; i++) {
+                document.zipCodeForm.type.options[i].value = CountyName[i]
+                document.zipCodeForm.type.options[i].text = CountyName[i]
+            }
+
+            document.zipCodeForm.type.options[CountyName.length].value = CountyName.length
+            document.zipCodeForm.type.options[CountyName.length].text = "請選擇"
+            document.zipCodeForm.type.selectedIndex = CountyName.length
+            document.zipCodeForm.typeZone.length = 0
+            document.zipCodeForm.zipNo.value = ""
+        }
+
+        //當縣市改變時
+        function changeZone() {
+            selectedCountyIndex = document.zipCodeForm.type.selectedIndex
+            if (selectedCountyIndex != CountyName.length) {
+                document.zipCodeForm.typeZone.length = zoneName[selectedCountyIndex].length
+
+                for (i = 0; i < zoneName[selectedCountyIndex].length; i++) {
+                    document.zipCodeForm.typeZone.options[i].value = zoneName[selectedCountyIndex][i]
+                    document.zipCodeForm.typeZone.options[i].text = zoneName[selectedCountyIndex][i]
+                }
+
+                document.zipCodeForm.typeZone.selectedIndex = 0
+                showZipCode()
+            } else {
+                initCounty()
+            }
+        }
+
+        //輸出郵遞區號
+        function showZipCode() {
+            document.zipCodeForm.zipNo.value =
+                ZipCode[document.zipCodeForm.type.selectedIndex][document.zipCodeForm.typeZone.selectedIndex]
+        }
+    </script>
 </head>
 
-<body>
-    
+<body onLoad="initCounty()">
+    <center>
+        <form name="zipCodeForm">
+            <table cellspacing="3" cellpadding="2" border="0" width="50%" style="background-color:LightGray;table-layout:fixed">
+                <tr>
+                    <td>種類： <select name="type" onChange="changeZone()" size="1"></select></td>
+                    <td>詳細種類： <select name="detailType" onChange="" size="1"></select></td>
+                    <td>重量： <select name="weight" onChange="" size="1"></select></td>
+                </tr>
+                <tr >
+                    <td>地址： <input name="address" size="80"></td>
+                </tr>
+            </table>
+        </form>
+    </center>
 </body>
-<script>
-
-</script>
 
 </html>

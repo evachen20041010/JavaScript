@@ -1,0 +1,162 @@
+﻿<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>計算機</title>
+  <style>
+    TABLE {
+      BACKGROUND: #003300;
+    }
+
+    .Btn {
+      FONT: 12px;
+      COLOR: #FFFFFF;
+      BACKGROUND: #6699ff;
+      WIDTH: 60px;
+      HEIGHT: 25px;
+      BODER-COLOR: #CCCCCC;
+    }
+
+    .BtnC {
+      FONT: 15px;
+      COLOR: #FFFFFF;
+      BACKGROUND: #6699ff;
+      WIDTH: 126px;
+      HEIGHT: 25px;
+      BODER-COLOR: #CCCCCC;
+    }
+
+    .ansTExt {
+      FONT: 12px;
+      TEXT-ALIGN: right;
+      WIDTH: 183;
+    }
+
+    .oText {
+      FONT: 12px;
+      COLOR: #000000;
+      TEXT-ALIGN: center;
+      BACKGROUND: #ccff99;
+    }
+  </style>
+
+  <SCRIPT type="text/javascript">
+    enterNumFlag = false
+    tempOper = "" //暫存運算符號
+    calculatorNum = 0 //暫存計算值
+
+    //輸入數字  
+    function enterNum(Num) {
+      if (enterNumFlag) {
+        calculatorForm.outAns.value = Num
+        enterNumFlag = false
+      } else {
+        if (calculatorForm.outAns.value == "0") {
+          calculatorForm.outAns.value = Num
+        }
+        else {
+          calculatorForm.outAns.value += Num
+        }
+      }
+    }
+
+    //輸入運算符號
+    function enterOper(operation) {
+      outAns = calculatorForm.outAns.value
+      if (!(tempOper != "=" && enterNumFlag)) {
+        enterNumFlag = true
+
+        if (tempOper == "+") {
+          calculatorNum += parseFloat(outAns)
+        }
+        else if (tempOper == "-") {
+          calculatorNum -= parseFloat(outAns)
+        }
+        else if (tempOper == "/") {
+          calculatorNum /= parseFloat(outAns)
+        }
+        else if (tempOper == "*") {
+          calculatorNum *= parseFloat(outAns)
+        }
+        else {
+          calculatorNum = parseFloat(outAns)
+        }
+        calculatorForm.outAns.value = calculatorNum
+        tempOper = operation
+      }
+    }
+
+    //正負數互轉  
+    function invert() {
+      calculatorForm.outAns.value = parseFloat(calculatorForm.outAns.value) * -1
+    }
+
+    //百分比計算 
+    function percent() {
+      calculatorForm.outAns.value = (parseFloat(calculatorForm.outAns.value) / 100) * parseFloat(calculatorNum)
+    }
+
+    //輸入小數點
+    function enterDot() {
+      tempAns = calculatorForm.outAns.value
+
+      if (enterNumFlag) {
+        tempAns = "0."
+        enterNumFlag = false
+      } else {
+        if (tempAns.indexOf(".") == -1) tempAns += "."
+      }
+      calculatorForm.outAns.value = tempAns
+    }
+
+    //清除  
+    function clearAll() {
+      calculatorNum = 0
+      tempOper = ""
+      calculatorForm.outAns.value = "0"
+      enterNumFlag = true
+    }
+  </SCRIPT>
+</head>
+
+<body>
+  <center>
+    <form name="calculatorForm">
+      <table border="1" cellpadding="0" cellspacing="1">
+        <tr>
+          <td colspan="3"><input name="outAns" type="Text" value="0" class="ansText"></td>
+          <td colspan="2"><input type="Button" value="C" onclick="clearAll()" class="BtnC"></td>
+        </tr>
+        <tr>
+          <td><input type="Button" value="7" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="8" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="9" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="+/-" onclick="invert()" class="Btn"></td>
+          <td><input type="Button" value="%" onClick="percent()" class="Btn"></td>
+        </tr>
+        <tr>
+          <td><input type="Button" value="4" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="5" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="6" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="+" onclick="enterOper(this.value)" class="Btn"></td>
+          <td><input type="Button" value="-" onClick="enterOper(this.value)" class="Btn"></td>
+        </tr>
+        <tr>
+          <td><input type="Button" value="1" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="2" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="3" onclick="enterNum(this.value)" class="Btn"></td>
+          <td><input type="Button" value="*" onclick="enterOper(this.value)" class="Btn"></td>
+          <td><input type="Button" value="/" onClick="enterOper(this.value)" class="Btn"></td>
+        </tr>
+        <tr>
+          <td width="50"><input type="Button" value=" 0" onclick="enterNum(this.value)" class="Btn"></td>
+          <td width="50"><input type="Button" value="." onclick="enterDot()" class="Btn"></td>
+          <td><input type="Button" value="=" onClick="enterOper(this.value)" class="Btn"></td>
+          <td colspan="2" class="oText">信 義 誠 實</td>
+        </tr>
+      </table>
+    </form>
+</body>
+
+</html>
