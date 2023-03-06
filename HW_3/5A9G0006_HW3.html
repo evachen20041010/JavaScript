@@ -15,12 +15,50 @@
         //定義種類陣列與資料
         CountyName = new Array("信函", "印刷物", "小包", "明信片", "郵簡")
 
-        //定義詳細種類陣列與資料
-        zoneName = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)")
+        //定義信函陣列與資料
+        //詳細種類陣列
+        LetterZone = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)")
+        //重量陣列
+        LetterWeight = new Array("不逾20公克", "21-50公克", "51-100公克", "101-250公克", "251-500公克", "501-1000公克", "1001-2000公克")
+        //價錢陣列
+        LetterPrice = new Array(6)
+        LetterPrice[0] = new Array("8", "16", "24", "40", "72", "112", "160")
+        LetterPrice[1] = new Array("15", "23", "31", "47", "79", "119", "167")
+        LetterPrice[2] = new Array("28", "36", "44", "60", "92", "132", "180")
+        LetterPrice[3] = new Array("35", "43", "51", "67", "99", "139", "187")
+        LetterPrice[4] = new Array("43", "51", "59", "75", "107", "147", "195")
+        LetterPrice[5] = new Array("50", "58", "66", "82", "114", "154", "202")
 
-        //定義價錢陣列與資料
-        price = new Array(22)
-        price[0] = new Array(8, 16, 24, 40, 72, 112, 160)
+        //定義印刷物陣列與資料
+        PrintZone = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)", "新聞紙", "雜誌")
+        //重量陣列
+        PrintWeight = new Array("不逾20公克", "21-50公克", "51-100公克", "101-250公克", "251-500公克", "501-1000公克", "1001-2000公克")
+        //價錢陣列
+        PrintPrice = new Array(6)
+        PrintPrice[0] = new Array("6", "6", "11", "16", "32", "56", "88")
+        PrintPrice[1] = new Array("13", "13", "18", "23", "39", "63", "95")
+        PrintPrice[2] = new Array("26", "26", "31", "36", "52", "76", "108")
+        PrintPrice[3] = new Array("33", "33", "38", "43", "59", "83", "115")
+        PrintPrice[4] = new Array("41", "41", "46", "51", "67", "91", "123")
+        PrintPrice[5] = new Array("48", "48", "53", "58", "74", "98", "130")
+        //新聞紙 雜誌
+
+        //定義小包陣列與資料
+        PacketZone = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)")
+        //重量陣列
+        PacketWeight = new Array("不逾100公克", "101-200公克", "201-300公克", "301-400公克", "401-500公克", "501-600公克", "601-700公克", "701-800公克", "801-900公克", "901-1000公克")
+        //價錢陣列
+        PacketPrice = new Array(6)
+        PacketPrice[0] = new Array("12", "24", "36", "48", "60", "72", "84", "96", "108", "120")
+        PacketPrice[1] = new Array("19", "31", "43", "55", "67", "79", "91", "103", "115", "127")
+        PacketPrice[2] = new Array("32", "44", "56", "68", "80", "92", "104", "116", "128", "140")
+        PacketPrice[3] = new Array("39", "51", "63", "75", "87", "99", "111", "123", "135", "147")
+        PacketPrice[4] = new Array("47", "59", "71", "83", "95", "107", "119", "131", "143", "155")
+        PacketPrice[5] = new Array("54", "66", "78", "90", "102", "114", "126", "138", "150", "162")
+
+        //定義明信片陣列與資料
+
+        //定義郵簡陣列與資料
 
         //初始種類選擇選單
         function initCounty() {
@@ -67,13 +105,14 @@
 <body onLoad="initCounty()">
     <center>
         <form name="zipCodeForm">
-            <table cellspacing="3" cellpadding="2" border="0" width="50%" style="background-color:LightGray;table-layout:fixed">
+            <table cellspacing="3" cellpadding="2" border="0" width="50%"
+                style="background-color:LightGray;table-layout:fixed">
                 <tr>
                     <td>種類： <select name="type" onChange="changeZone()" size="1"></select></td>
                     <td>詳細種類： <select name="detailType" onChange="" size="1"></select></td>
                     <td>重量： <select name="weight" onChange="" size="1"></select></td>
                 </tr>
-                <tr >
+                <tr>
                     <td>地址： <input name="address" size="80"></td>
                 </tr>
             </table>
