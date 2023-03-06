@@ -1,0 +1,40 @@
+TD {
+    FONT-SIZE: 12px;
+    COLOR: #666666;
+    LINE-HEIGHT: 16px;
+}
+
+TABLE {
+    BACKGROUND: #003300;
+}
+
+.Btn {
+    FONT: 12px;
+    COLOR: #FFFFFF;
+    BACKGROUND: #6699ff;
+    WIDTH: 60px;
+    HEIGHT: 25px;
+    BORDER-COLOR: #CCCCCC;
+}
+
+.BtnC {
+    FONT: 15px;
+    COLOR: #FFFFFF;
+    BACKGROUND: #6699ff;
+    WIDTH: 126px;
+    HEIGHT: 25px;
+    BORDER-COLOR: #CCCCCC;
+}
+
+.ansTExt {
+    FONT: 12px;
+    TEXT-ALIGN: right;
+    WIDTH: 183;
+}
+
+.oText {
+    FONT: 12px;
+    COLOR: #000000;
+    TEXT-ALIGN: center;
+    BACKGROUND: #ccff99;
+}

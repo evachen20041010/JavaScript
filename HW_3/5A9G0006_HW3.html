@@ -1,17 +1,13 @@
 <!doctype html>
 <html>
+<link href="css.css" type="text/css" rel="stylesheet" />
 
 <head>
     <meta charset="utf-8">
     <title>HW3_5A9G0006</title>
-    <style>
-        TD {
-            FONT-SIZE: 12px;
-            COLOR: #666666;
-            LINE-HEIGHT: 16px;
-        }
-    </style>
     <SCRIPT type="text/javascript">
+        /*      普通資費表    */
+
         //定義種類陣列與資料
         CountyName = new Array("信函", "印刷物", "小包", "明信片", "郵簡")
 
@@ -30,6 +26,7 @@
         LetterPrice[5] = new Array("50", "58", "66", "82", "114", "154", "202")
 
         //定義印刷物陣列與資料
+        //詳細種類陣列
         PrintZone = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)", "新聞紙", "雜誌")
         //重量陣列
         PrintWeight = new Array("不逾20公克", "21-50公克", "51-100公克", "101-250公克", "251-500公克", "501-1000公克", "1001-2000公克")
@@ -41,9 +38,9 @@
         PrintPrice[3] = new Array("33", "33", "38", "43", "59", "83", "115")
         PrintPrice[4] = new Array("41", "41", "46", "51", "67", "91", "123")
         PrintPrice[5] = new Array("48", "48", "53", "58", "74", "98", "130")
-        //新聞紙 雜誌
 
         //定義小包陣列與資料
+        //詳細種類陣列
         PacketZone = new Array("普通", "限時", "普通掛號", "限時掛號", "普通掛號附回執(回執為平信)", "限時掛號附回執(回執為平信)")
         //重量陣列
         PacketWeight = new Array("不逾100公克", "101-200公克", "201-300公克", "301-400公克", "401-500公克", "501-600公克", "601-700公克", "701-800公克", "801-900公克", "901-1000公克")
@@ -55,10 +52,6 @@
         PacketPrice[3] = new Array("39", "51", "63", "75", "87", "99", "111", "123", "135", "147")
         PacketPrice[4] = new Array("47", "59", "71", "83", "95", "107", "119", "131", "143", "155")
         PacketPrice[5] = new Array("54", "66", "78", "90", "102", "114", "126", "138", "150", "162")
-
-        //定義明信片陣列與資料
-
-        //定義郵簡陣列與資料
 
         //初始種類選擇選單
         function initCounty() {
@@ -72,48 +65,225 @@
             document.zipCodeForm.type.options[CountyName.length].value = CountyName.length
             document.zipCodeForm.type.options[CountyName.length].text = "請選擇"
             document.zipCodeForm.type.selectedIndex = CountyName.length
-            document.zipCodeForm.typeZone.length = 0
-            document.zipCodeForm.zipNo.value = ""
         }
 
-        //當縣市改變時
+        //當種類改變時
         function changeZone() {
             selectedCountyIndex = document.zipCodeForm.type.selectedIndex
-            if (selectedCountyIndex != CountyName.length) {
-                document.zipCodeForm.typeZone.length = zoneName[selectedCountyIndex].length
-
-                for (i = 0; i < zoneName[selectedCountyIndex].length; i++) {
-                    document.zipCodeForm.typeZone.options[i].value = zoneName[selectedCountyIndex][i]
-                    document.zipCodeForm.typeZone.options[i].text = zoneName[selectedCountyIndex][i]
+            //alert(CountyName[selectedCountyIndex])
+            if (CountyName[selectedCountyIndex] == "信函") {
+                document.zipCodeForm.detailType.length = LetterZone.length
+                for (i = 0; i < LetterZone.length; i++) {
+                    document.zipCodeForm.detailType.options[i].text = LetterZone[i]
                 }
-
-                document.zipCodeForm.typeZone.selectedIndex = 0
-                showZipCode()
-            } else {
-                initCounty()
+                document.zipCodeForm.detailType.selectedIndex = 0
+            } else if (CountyName[selectedCountyIndex] == "印刷物") {
+                document.zipCodeForm.detailType.length = PrintZone.length
+                for (i = 0; i < PrintZone.length; i++) {
+                    document.zipCodeForm.detailType.options[i].text = PrintZone[i]
+                }
+                document.zipCodeForm.detailType.selectedIndex = 0
+            } else if (CountyName[selectedCountyIndex] == "小包") {
+                document.zipCodeForm.detailType.length = PacketZone.length
+                for (i = 0; i < PacketZone.length; i++) {
+                    document.zipCodeForm.detailType.options[i].text = PacketZone[i]
+                }
+                document.zipCodeForm.detailType.selectedIndex = 0
+            } else if (CountyName[selectedCountyIndex] == "明信片") {
+                alert("每件5元，限時明信片每件12元")
+                document.getElementById("js").innerHTML = "每件5元，限時明信片每件12元"
+            } else if (CountyName[selectedCountyIndex] == "郵簡") {
+                alert("每件6元")
+                document.getElementById("js").innerHTML = "每件6元"
             }
         }
 
-        //輸出郵遞區號
-        function showZipCode() {
-            document.zipCodeForm.zipNo.value =
-                ZipCode[document.zipCodeForm.type.selectedIndex][document.zipCodeForm.typeZone.selectedIndex]
+        //當詳細種類改變時
+        function chageDetailType() {
+            selectedDetailTypeIndex = document.zipCodeForm.detailType.selectedIndex
+            if (CountyName[selectedCountyIndex] == "信函") {
+                document.zipCodeForm.weight.length = LetterWeight.length
+                for (i = 0; i < LetterWeight.length; i++) {
+                    document.zipCodeForm.weight.options[i].text = LetterWeight[i]
+                }
+                document.zipCodeForm.weight.selectedIndex = 0
+            } else if (CountyName[selectedCountyIndex] == "印刷物") {
+                if (PrintZone[selectedDetailTypeIndex] == "新聞紙") {
+                    alert("每重50公克2元(每件限重不逾2公斤)")
+                    document.getElementById("js").innerHTML = "每重50公克2元(每件限重不逾2公斤)"
+                } else if (PrintZone[selectedDetailTypeIndex] == "雜誌") {
+                    alert("每重50公克3元(每件限重不逾2公斤)")
+                    document.getElementById("js").innerHTML = "每重50公克3元(每件限重不逾2公斤)"
+                } else {
+                    document.zipCodeForm.weight.length = PrintZone.length
+                    for (i = 0; i < PrintZone.length - 1; i++) {
+                        document.zipCodeForm.weight.options[i].text = PrintWeight[i]
+                    }
+                    document.zipCodeForm.weight.selectedIndex = 0
+                }
+
+            } else if (CountyName[selectedCountyIndex] == "小包") {
+                document.zipCodeForm.weight.length = PacketZone.length
+                for (i = 0; i < PacketZone.length; i++) {
+                    document.zipCodeForm.weight.options[i].text = PacketWeight[i]
+                }
+                document.zipCodeForm.weight.selectedIndex = 0
+            }
         }
+
+        //當重量改變時
+        function changeWeight() {
+            selectedWeightIndex = document.zipCodeForm.weight.selectedIndex
+            if (CountyName[selectedCountyIndex] == "信函") {
+                document.getElementById("js").innerHTML = LetterPrice[selectedDetailTypeIndex][selectedWeightIndex]
+            } else if (CountyName[selectedCountyIndex] == "印刷物") {
+                document.getElementById("js").innerHTML = PrintPrice[selectedDetailTypeIndex][selectedWeightIndex]
+            } else if (CountyName[selectedCountyIndex] == "小包") {
+                document.getElementById("js").innerHTML = PacketPrice[selectedDetailTypeIndex][selectedWeightIndex]
+            }
+        }
+
+        /*      普通資費表END    */
+
+        /*      計算機      */
+
+        enterNumFlag = false
+        tempOper = "" //暫存運算符號
+        calculatorNum = 0 //暫存計算值
+
+        //輸入數字  
+        function enterNum(Num) {
+            if (enterNumFlag) {
+                calculatorForm.outAns.value = Num
+                enterNumFlag = false
+            } else {
+                if (calculatorForm.outAns.value == "0") {
+                    calculatorForm.outAns.value = Num
+                }
+                else {
+                    calculatorForm.outAns.value += Num
+                }
+            }
+        }
+
+        //輸入運算符號
+        function enterOper(operation) {
+            outAns = calculatorForm.outAns.value
+            if (!(tempOper != "=" && enterNumFlag)) {
+                enterNumFlag = true
+
+                if (tempOper == "+") {
+                    calculatorNum += parseFloat(outAns)
+                }
+                else if (tempOper == "-") {
+                    calculatorNum -= parseFloat(outAns)
+                }
+                else if (tempOper == "/") {
+                    calculatorNum /= parseFloat(outAns)
+                }
+                else if (tempOper == "*") {
+                    calculatorNum *= parseFloat(outAns)
+                }
+                else {
+                    calculatorNum = parseFloat(outAns)
+                }
+                calculatorForm.outAns.value = calculatorNum
+                tempOper = operation
+            }
+        }
+
+        //正負數互轉  
+        function invert() {
+            calculatorForm.outAns.value = parseFloat(calculatorForm.outAns.value) * -1
+        }
+
+        //百分比計算 
+        function percent() {
+            calculatorForm.outAns.value = (parseFloat(calculatorForm.outAns.value) / 100) * parseFloat(calculatorNum)
+        }
+
+        //輸入小數點
+        function enterDot() {
+            tempAns = calculatorForm.outAns.value
+
+            if (enterNumFlag) {
+                tempAns = "0."
+                enterNumFlag = false
+            } else {
+                if (tempAns.indexOf(".") == -1) tempAns += "."
+            }
+            calculatorForm.outAns.value = tempAns
+        }
+
+        //清除  
+        function clearAll() {
+            calculatorNum = 0
+            tempOper = ""
+            calculatorForm.outAns.value = "0"
+            enterNumFlag = true
+        }
+
+        /*      計算機END      */
+
     </script>
 </head>
 
 <body onLoad="initCounty()">
     <center>
         <form name="zipCodeForm">
-            <table cellspacing="3" cellpadding="2" border="0" width="50%"
+            <table cellspacing="1" cellpadding="5" border="0" width="50%"
                 style="background-color:LightGray;table-layout:fixed">
                 <tr>
-                    <td>種類： <select name="type" onChange="changeZone()" size="1"></select></td>
-                    <td>詳細種類： <select name="detailType" onChange="" size="1"></select></td>
-                    <td>重量： <select name="weight" onChange="" size="1"></select></td>
+                    <td>地址： <input name="address" size="80"></td>
                 </tr>
                 <tr>
-                    <td>地址： <input name="address" size="80"></td>
+                    <td>種類： <select name="type" onChange="changeZone()" size="1"></select></td>
+                </tr>
+                <tr>
+                    <td>詳細種類： <select name="detailType" onChange="chageDetailType()" size="1"></select></td>
+                </tr>
+                <tr>
+                    <td>重量： <select name="weight" onChange="changeWeight()" size="1"></select></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id="js" style="font-size: 40px;font-weight: bolder;text-align: center;"></p>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <form name="calculatorForm">
+            <table border="1" cellpadding="0" cellspacing="1">
+                <tr>
+                    <td colspan="3"><input name="outAns" type="Text" value="0" class="ansText"></td>
+                    <td colspan="2"><input type="Button" value="C" onclick="clearAll()" class="BtnC"></td>
+                </tr>
+                <tr>
+                    <td><input type="Button" value="7" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="8" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="9" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="+/-" onclick="invert()" class="Btn"></td>
+                    <td><input type="Button" value="%" onClick="percent()" class="Btn"></td>
+                </tr>
+                <tr>
+                    <td><input type="Button" value="4" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="5" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="6" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="+" onclick="enterOper(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="-" onClick="enterOper(this.value)" class="Btn"></td>
+                </tr>
+                <tr>
+                    <td><input type="Button" value="1" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="2" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="3" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="*" onclick="enterOper(this.value)" class="Btn"></td>
+                    <td><input type="Button" value="/" onClick="enterOper(this.value)" class="Btn"></td>
+                </tr>
+                <tr>
+                    <td width="50"><input type="Button" value=" 0" onclick="enterNum(this.value)" class="Btn"></td>
+                    <td width="50"><input type="Button" value="." onclick="enterDot()" class="Btn"></td>
+                    <td><input type="Button" value="=" onClick="enterOper(this.value)" class="Btn"></td>
+                    <td colspan="2" class="oText">信 義 誠 實</td>
                 </tr>
             </table>
         </form>
