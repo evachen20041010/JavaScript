@@ -137,11 +137,17 @@
         function changeWeight() {
             selectedWeightIndex = document.zipCodeForm.weight.selectedIndex
             if (CountyName[selectedCountyIndex] == "信函") {
-                document.getElementById("js").innerHTML = LetterPrice[selectedDetailTypeIndex][selectedWeightIndex]
+                document.getElementById("js").innerHTML = "函件種類為 信函(" + LetterZone[selectedDetailTypeIndex] + ")，"
+                document.getElementById("js").innerHTML += "重量 " + LetterWeight[selectedWeightIndex]
+                document.getElementById("js").innerHTML += "<br>費用為 臺幣" + LetterPrice[selectedDetailTypeIndex][selectedWeightIndex] + "元"
             } else if (CountyName[selectedCountyIndex] == "印刷物") {
-                document.getElementById("js").innerHTML = PrintPrice[selectedDetailTypeIndex][selectedWeightIndex]
+                document.getElementById("js").innerHTML = "函件種類為 印刷物(" + PrintZone[selectedDetailTypeIndex] + ")，"
+                document.getElementById("js").innerHTML += "重量 " + PrintWeight[selectedWeightIndex]
+                document.getElementById("js").innerHTML += "<br>費用為 臺幣" + PrintPrice[selectedDetailTypeIndex][selectedWeightIndex] + "元"
             } else if (CountyName[selectedCountyIndex] == "小包") {
-                document.getElementById("js").innerHTML = PacketPrice[selectedDetailTypeIndex][selectedWeightIndex]
+                document.getElementById("js").innerHTML = "函件種類為 小包(" + PacketZone[selectedDetailTypeIndex] + ")，"
+                document.getElementById("js").innerHTML += "重量 " + PacketWeight[selectedWeightIndex]
+                document.getElementById("js").innerHTML += "<br>費用為 臺幣" + PacketPrice[selectedDetailTypeIndex][selectedWeightIndex] + "元"
             }
         }
 
@@ -173,7 +179,6 @@
             outAns = calculatorForm.outAns.value
             if (!(tempOper != "=" && enterNumFlag)) {
                 enterNumFlag = true
-
                 if (tempOper == "+") {
                     calculatorNum += parseFloat(outAns)
                 }
@@ -230,12 +235,13 @@
     </script>
 </head>
 
-<body onLoad="initCounty()" style="padding-top: 8%;background-color: rgb(158, 131, 156);">
+<body onLoad="initCounty()" style="padding-top: 5%;background-color: rgb(158, 131, 156);">
+    <p style="font-size: 40px;font-weight: bolder;text-align: center;color: rgb(255, 255, 255);">國內函件普通資費計算器</p>
     <div class="container">
 
         <div class="row justify-content-md-center">
-            <div class="col-md-3"></div>
-            <div class="col-md-6" style="background-color: rgb(242, 226, 227);">
+            <div class="col-md-2"></div>
+            <div class="col-md-8" style="background-color: rgb(242, 226, 227);">
                 <form name="zipCodeForm">
                     <table class="table table-borderless" align="center" valign="center"
                         style="background-color: rgb(242, 226, 227);table-layout:fixed;text-align: center;">
@@ -243,17 +249,17 @@
                             <td style="width: 15%"></td>
                         </tr>
                         <tr>
-                            <td style="width: 15%">種類： </td>
+                            <td style="width: 15%;font-size: 16px;">種類： </td>
                             <td><select name="type" onChange="changeZone()" size="1" class="form-select"
                                     aria-label="Default select example"></select></td>
                         </tr>
                         <tr>
-                            <td style="width: 15%">詳細種類： </td>
+                            <td style="width: 15%;font-size: 16px;">詳細種類： </td>
                             <td><select name="detailType" onChange="chageDetailType()" size="1" class="form-select"
                                     aria-label="Default select example"></select></td>
                         </tr>
                         <tr>
-                            <td style="width: 15%">重量： </td>
+                            <td style="width: 15%;font-size: 16px;">重量： </td>
                             <td><select name="weight" onChange="changeWeight()" size="1" class="form-select"
                                     aria-label="Default select example"></select></td>
                         </tr>
@@ -262,7 +268,7 @@
                         </tr>
                         <tr>
                             <td COLSPAN=2>
-                                <p id="js" style="font-size: 40px;font-weight: bolder;text-align: center;"></p>
+                                <p id="js" style="font-size: 30px;font-weight: bolder;text-align: center;line-height: 40px;"></p>
                             </td>
                         </tr>
                     </table>
@@ -308,7 +314,7 @@
                 </center>
                 <br>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 
