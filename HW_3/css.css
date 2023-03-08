@@ -7,7 +7,7 @@ TD {
 .Btn {
     FONT: 12px;
     COLOR: #FFFFFF;
-    BACKGROUND: #6699ff;
+    BACKGROUND: rgb(193, 161, 202);
     WIDTH: 60px;
     HEIGHT: 25px;
     BORDER-COLOR: #CCCCCC;
@@ -16,7 +16,7 @@ TD {
 .BtnC {
     FONT: 15px;
     COLOR: #FFFFFF;
-    BACKGROUND: #6699ff;
+    BACKGROUND: rgb(172,210,219);
     WIDTH: 126px;
     HEIGHT: 25px;
     BORDER-COLOR: #CCCCCC;
@@ -30,7 +30,7 @@ TD {
 
 .oText {
     FONT: 12px;
-    COLOR: #000000;
+    COLOR: rgb(193, 161, 202);
     TEXT-ALIGN: center;
-    BACKGROUND: #ccff99;
+    BACKGROUND: rgb(240,242,242);
 }
