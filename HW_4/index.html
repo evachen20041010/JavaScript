@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>HW3_5A9G0006</title>
+
+    <canvas></canvas>
+    <script>
+        five = [[0, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 1, 0]]
+        let cx = document.querySelector("canvas").getContext("2d");
+        cx.font = "28px Georgia";
+        cx.fillStyle = "fuchsia";
+        cx.fillText("陳紋誼", 30, 50);
+        
+
+        /*cx.moveTo(30, 100);
+        cx.lineTo(50, 100);
+        cx.moveTo(30, 100);
+        cx.lineTo(30, 120);
+        cx.moveTo(30, 120);*/
+        for (i = 0; i < 6; i++) {
+            for (j = 0; j < 6; j++) {
+                if (five[i][j] == 1) {
+                    cx.beginPath();
+                    cx.strokeStyle = "blue";
+                    cx.fillStyle = "blue";
+                    cx.arc(30 + i + 5, 120, 5, 0, 2 * Math.PI);
+                    cx.fill();
+                    cx.stroke();
+                } else {
+                    cx.beginPath();
+                    cx.strokeStyle = "white";
+                    cx.fillStyle = "white";
+                    cx.arc(30 + i + 5, 120, 5, 0, 2 * Math.PI);
+                    cx.fill();
+                    cx.stroke();
+                }
+            }
+        }
+        
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
