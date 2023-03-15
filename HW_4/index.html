@@ -7,22 +7,18 @@
 
     <canvas></canvas>
     <script>
-        five = [[0, 1, 1, 1, 1, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 1, 1, 1, 1, 0]]
         let cx = document.querySelector("canvas").getContext("2d");
         cx.font = "28px Georgia";
         cx.fillStyle = "fuchsia";
         cx.fillText("5A9G0006", 30, 40);
+        cx.fillStyle = "#bf83f7"
         cx.fillText("陳紋誼", 30, 80);
-        
+
         //陳
         cx.beginPath();
+        cx.strokeStyle = "#027dbf";
         cx.moveTo(30, 100);
-        cx.lineTo(50, 100);       
+        cx.lineTo(50, 100);
         cx.moveTo(50, 100);
         cx.lineTo(40, 110);
         cx.moveTo(40, 110);
@@ -53,6 +49,7 @@
 
         //紋
         cx.beginPath();
+        cx.strokeStyle = "#02bf57"
         cx.moveTo(125, 100);
         cx.lineTo(120, 117);
         cx.moveTo(120, 117);
@@ -79,26 +76,47 @@
         cx.lineTo(140, 148);
         cx.stroke();
 
-        /*for (i = 0; i < 6; i++) {
-            for (j = 0; j < 6; j++) {
-                if (five[i][j] == 1) {
-                    cx.beginPath();
-                    cx.strokeStyle = "blue";
-                    cx.fillStyle = "blue";
-                    cx.arc(30 + i + 5, 120, 5, 0, 2 * Math.PI);
-                    cx.fill();
-                    cx.stroke();
-                } else {
-                    cx.beginPath();
-                    cx.strokeStyle = "white";
-                    cx.fillStyle = "white";
-                    cx.arc(30 + i + 5, 120, 5, 0, 2 * Math.PI);
-                    cx.fill();
-                    cx.stroke();
-                }
-            }
-        }*/
-        
+        //誼
+        cx.beginPath();
+        cx.strokeStyle = "#bf5a02"
+        cx.moveTo(190, 100);
+        cx.lineTo(193, 108);
+        cx.moveTo(185, 108);
+        cx.lineTo(200, 108);
+        cx.moveTo(187, 115);
+        cx.lineTo(198, 115);
+        cx.moveTo(187, 122);
+        cx.lineTo(198, 122);
+        cx.moveTo(187, 129);
+        cx.lineTo(198, 129);
+        cx.moveTo(187, 129);
+        cx.lineTo(187, 145);
+        cx.moveTo(198, 129);
+        cx.lineTo(198, 145);
+        cx.moveTo(187, 145);
+        cx.lineTo(198, 145);
+        cx.moveTo(220, 100);
+        cx.lineTo(223, 108);
+        cx.moveTo(210, 108);
+        cx.lineTo(235, 108);
+        cx.moveTo(210, 108);
+        cx.lineTo(209, 116);
+        cx.moveTo(235, 108);
+        cx.lineTo(236, 116);
+        cx.moveTo(215, 115);
+        cx.lineTo(230, 115);
+        cx.moveTo(215, 125);
+        cx.lineTo(230, 125);
+        cx.moveTo(215, 135);
+        cx.lineTo(230, 135);
+        cx.moveTo(205, 145);
+        cx.lineTo(240, 145);
+        cx.moveTo(215, 115);
+        cx.lineTo(215, 145);
+        cx.moveTo(230, 115);
+        cx.lineTo(230, 145);
+        cx.stroke();
+
     </script>
 
 </head>
