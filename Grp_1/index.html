@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Draw a Sine wave</title>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="360" height="360" style="border:1px solid #d3d3d3;">
+
+        <script>
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            var i;
+
+            // draw a horizontal axis
+
+            for (i = 0; i <= 360; i += 20) {
+                ctx.moveTo(i + 5, 180);
+                ctx.lineTo(i, 180);
+            }
+            ctx.stroke();
+
+            // draw a vertical axis
+
+            for (i = 0; i <= 360; i += 20) {
+                ctx.moveTo(180, i + 5);
+                ctx.lineTo(180, i);
+            }
+            ctx.stroke();
+
+            var counter = 0, x = 0, y = 180;
+
+            //100 iterations
+            var increase = 90 / 180 * Math.PI / 9;
+
+            for (i = 0; i <= 360; i += 10) {
+                ctx.moveTo(x, y);
+
+                x = i;
+                y = 180 - Math.acosh(counter) * 120;
+                //y = 180 - Math.cosh(counter) * 10;
+                //y = 180 - Math.sin(counter) * 120;
+                counter += increase;
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+
+                //alert( " x : " + x + " y : " + y + " increase : " + counter ) ;
+            }
+        </script>
+
+</body>
+
+</html>
