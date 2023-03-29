@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <p id="js" align="center" style="font-size: 50px;font-weight: bolder;"></p>
+</body>
+<script>
+    function reverseString(str) {
+        let reversedStr = '';
+        for (let i = str.length - 1; i >= 0; i--) {
+            reversedStr += str[i];
+        }
+        return reversedStr;
+    }
+
+    function reverseStringInPlace(str) {
+        let strArr = str.split('');
+        for (let i = 0; i < Math.floor(strArr.length / 2); i++) {
+            let temp = strArr[i];
+            strArr[i] = strArr[strArr.length - 1 - i];
+            strArr[strArr.length - 1 - i] = temp;
+        }
+        return strArr.join('');
+    }
+
+    let width
+    width = prompt("請輸入一串字串：")
+    document.getElementById("js").innerHTML = "輸入的字串：" + width + "<br>reverseString()輸出的結果：" + reverseString(width);
+    document.getElementById("js").innerHTML += "<br>reverseStringInPlace()輸出的結果：" + reverseStringInPlace(width);
+
+</script>
+
+</html>
