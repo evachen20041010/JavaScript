@@ -106,7 +106,7 @@ addTodoBtn.addEventListener("click", function () {
         label.style.maxWidth = "80%"
 
         button.innerHTML = "刪除";
-        button.className = "btn btn-outline-secondary";
+        button.className = "btn";
         button.dataset.bsToggle = "modal";
         button.dataset.bsTarget = "#staticBackdrop";
 

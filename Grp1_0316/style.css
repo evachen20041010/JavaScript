@@ -20,6 +20,18 @@ body {
     border-radius: 10px 10px 0px 0px;
 }
 
+.month .btn {
+    color: #fff;
+    background-color: #8b99a5;
+    border-color: #8b99a5;
+}
+
+.month .btn:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
 .weekdays {
     display: flex;
     flex-wrap: wrap;
@@ -98,6 +110,18 @@ body {
 #todo-list {
     list-style-type: none;
     padding: 0;
+}
+
+li .btn {
+    color: #fff;
+    background-color: #af8f92;
+    border-color: #8b5d63;
+}
+
+li .btn:hover {
+    color: #fff;
+    background-color: #8b5d63;
+    border-color: #8b5d63;
 }
 
 #todo-list li {
