@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>文具店購物車</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        li img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        li h2 {
+            margin: 0;
+        }
+
+        li button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        li button:hover {
+            background-color: #c62828;
+        }
+
+        #cart {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #cart h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        #cart ul {
+            margin-bottom: 0;
+        }
+
+        #cart li {
+            border: none;
+            margin-bottom: 5px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        #cart li button {
+            margin-left: 10px;
+        }
+
+        #cart .total-price {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            li img {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+
+            li button {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>文具店購物車</h1>
+    <h2>商品列表</h2>
+    <ul>
+        <li>
+            <span>鉛筆</span>
+            <button class="add-to-cart" data-id="pencil" data-name="鉛筆" data-price="10">加入購物車</button>
+        </li>
+        <li>
+            <span>橡皮擦</span>
+            <button class="add-to-cart" data-id="eraser" data-name="橡皮擦" data-price="5">加入購物車</button>
+        </li>
+        <li>
+            <span>筆記本</span>
+            <button class="add-to-cart" data-id="notebook" data-name="筆記本" data-price="30">加入購物車</button>
+        </li>
+    </ul>
+    <h2>購物車</h2>
+    <ul id="cart">
+    </ul>
+    <p>總金額：<span id="total-price">0</span> 元</p>
+
+    <script>
+        // 當網頁載入完成時執行以下程式碼
+        document.addEventListener("DOMContentLoaded", function (event) {
+            // 取得加入購物車按鈕
+            var addToCartButtons = document.querySelectorAll('.add-to-cart');
+            // 取得購物車清單元素
+            var cartList = document.getElementById('cart');
+            // 取得總金額元素
+            var totalPriceElement = document.getElementById('total-price');
+
+            // 設定購物車物品清單，從瀏覽器 local storage 取得資料
+            var cartItems = JSON.parse(localStorage.getItem('cartItems')) || {};
+
+            // 更新購物車清單和總金額顯示
+            function updateCartDisplay() {
+                cartList.innerHTML = '';
+                var totalPrice = 0;
+                for (var itemId in cartItems) {
+                    if (cartItems.hasOwnProperty(itemId)) {
+                        var item = cartItems[itemId];
+                        var li = document.createElement('li');
+                        var nameSpan = document.createElement('span');
+                        nameSpan.textContent = item.name;
+                        li.appendChild(nameSpan);
+                        var quantitySpan = document.createElement('span');
+                        quantitySpan.textContent = ' x ' + item.quantity;
+                        li.appendChild(quantitySpan);
+                        var priceSpan = document.createElement('span');
+                        priceSpan.textContent = ' = ' + item.price * item.quantity + ' 元';
+                        li.appendChild(priceSpan);
+                        var removeButton = document.createElement('button');
+                        removeButton.textContent = '刪除';
+                        removeButton.setAttribute('data-id', itemId);
+                        removeButton.addEventListener('click', function () {
+                            var itemId = this.getAttribute('data-id');
+                            delete cartItems[itemId];
+                            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                            updateCartDisplay();
+                        });
+                        li.appendChild(removeButton);
+                        cartList.appendChild(li);
+                        totalPrice += item.price * item.quantity;
+                    }
+                }
+                totalPriceElement.textContent = totalPrice;
+            }
+
+            // 點擊加入購物車按鈕時執行以下程式碼
+            addToCartButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var itemId = this.getAttribute('data-id');
+                    var itemName = this.getAttribute('data-name');
+                    var itemPrice = parseInt(this.getAttribute('data-price'));
+                    if (cartItems[itemId]) {
+                        cartItems[itemId].quantity++;
+                    } else {
+                        cartItems[itemId] = {
+                            name: itemName,
+                            price: itemPrice,
+                            quantity: 1
+                        };
+                    }
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    updateCartDisplay();
+                });
+            });
+
+            // 更新購物車顯示
+            updateCartDisplay();
+        });
+    </script>
+</body>
+
+</html>

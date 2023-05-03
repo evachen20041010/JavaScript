@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>文具店購物車 - 結帳</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>文具店購物車</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">首頁</a></li>
+                <li><a href="cart.html">購物車</a></li>
+                <li><a href="checkout.html">結帳</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>結帳</h2>
+        <form>
+            <label for="name">姓名：</label>
+            <input type="text" id="name" required>
+            <br>
+            <label for="email">Email：</label>
+            <input type="email" id="email" required>
+            <br>
+            <label for="phone">電話：</label>
+            <input type="tel" id="phone" required>
+            <br>
+            <label for="address">地址：</label>
+            <textarea id="address" required></textarea>
+            <br>
+            <button type="submit">確認訂單</button>
+        </form>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stationery Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Stationery Store</h1>
+    </header>
+    <div class="container-contact">
+        <div class=" row row-block">
+            <div class="col-sm-6">
+                <div class="container">
+                    <h1>商品</h1>
+
+                    <form id="add-to-cart-form">
+                        <label for="item-name">Item Name:</label>
+                        <input type="text" id="item-name" name="item-name" required />
+                        <label for="item-price">Price:</label>
+                        <input type="number" id="item-price" name="item-price" min="1" step="1" required />
+
+                        <label for="item-quantity">Quantity:</label>
+                        <input type="number" id="item-quantity" name="item-quantity" min="1" required />
+
+                        <input type="submit" value="Add to Cart" />
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="container">
+                    <h1>購物車</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>商品名稱</th>
+                                <th>價格</th>
+                                <th>數量</th>
+                                <th>總價</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-items">
+                            <!-- 購物車項目動態添加 -->
+                        </tbody>
+                    </table>
+
+                    <div class="cart-actions">
+                        <button id="clear-cart">清空購物車</button>
+                        <div class="total-price">
+                            總金額: <span id="total-price-value">$0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const form = document.getElementById('add-to-cart-form');
+        const cartItems = document.getElementById('cart-items');
+        const clearCartButton = document.getElementById('clear-cart');
+        const totalPrice = document.getElementById('total-price-value');
+
+        let itemsInCart = [];
+
+        function addItemToCart(itemName, itemPrice, itemQuantity) {
+            // 創建一個新的購物車項目
+            const newItem = {
+                name: itemName,
+                price: itemPrice,
+                quantity: itemQuantity
+            };
+
+            // 檢查商品是否已存在於購物車中
+            const existingItem = itemsInCart.find(item => item.name === itemName);
+
+            if (existingItem) {
+                // 如果該商品已存在於購物車中，則更新其數量
+                existingItem.quantity += itemQuantity;
+            } else {
+                // 將新商品添加到購物車
+                itemsInCart.push(newItem);
+            }
+
+            // 更新購物車
+            updateCartHtml();
+        }
+
+        function removeItemFromCart(itemName) {
+            // 在購物車中查找商品
+            const index = itemsInCart.findIndex(item => item.name === itemName);
+
+            if (index !== -1) {
+                // 從購物車中刪除項目
+                itemsInCart.splice(index, 1);
+
+                // 更新購物車
+                updateCartHtml();
+            }
+        }
+
+        function updateItemQuantity(itemName, newQuantity) {
+            // 在購物車中查找商品
+            const item = itemsInCart.find(item => item.name === itemName);
+
+            if (item) {
+                // 更新項目的數量
+                item.quantity = newQuantity;
+
+                // 更新購物車
+                updateCartHtml();
+            }
+        }
+
+        function updateCartHtml() {
+            // 清除現有的購物車
+            cartItems.innerHTML = '';
+
+            // 從頭開始重構購物車
+            itemsInCart.forEach(item => {
+                const totalItemPrice = item.price * item.quantity;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                        <td>$${item.price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" class="item-quantity-input" value="${item.quantity}" min="1" />
+                    </td>
+                    <td>$${totalItemPrice.toFixed(2)}</td>
+                    <td>
+                        <button class="remove-item-button" data-item-name="${item.name}">Remove</button>
+                    </td>
+                    `;
+
+                const quantityInput = row.querySelector('.item-quantity-input');
+                const removeButton = row.querySelector('.remove-item-button');
+
+                // 數量輸入和刪除按鈕添加事件監聽器
+                quantityInput.addEventListener('input', event => {
+                    const newQuantity = parseInt(event.target.value);
+                    updateItemQuantity(item.name, newQuantity);
+                });
+
+                removeButton.addEventListener('click', event => {
+                    const itemName = event.target.getAttribute('data-item-name');
+                    removeItemFromCart(itemName);
+                });
+
+                cartItems.appendChild(row);
+            });
+
+            // 更新總價
+            const totalPriceValue = itemsInCart.reduce((total, item) => {
+                return total + (item.price * item.quantity);
+            }, 0);
+
+            totalPrice.textContent = `$${totalPriceValue.toFixed(2)}`;
+        }
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const itemName = event.target.elements['item-name'].value;
+            const itemPrice = parseFloat(event.target.elements['item-price'].value);
+            const itemQuantity = parseInt(event.target.elements['item-quantity'].value);
+
+            addItemToCart(itemName, itemPrice, itemQuantity);
+
+            event.target.reset();
+        });
+
+        clearCartButton.addEventListener('click', () => {
+            itemsInCart = [];
+            updateCartHtml();
+        });
+    </script>
+</body>
+
+</html>
