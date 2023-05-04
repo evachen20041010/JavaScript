@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>5A9G0006</title>
+</head>
+
+<body>
+    <style>
+        body {
+            min-height: 200px
+        }
+    </style>
+    <img src="cat.png" id="cat" style="position: absolute">
+    <img src="hat.png" id="hat" style="position: absolute">
+    <script>
+        let cat = document.querySelector("#cat");
+        let hat = document.querySelector("#hat");
+        let angle = 0;
+        let lastTime = null;
+
+        setInterval(function () {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            let s = Math.random();
+            cat.style.filter = "hue-rotate(" + r + "deg) saturate(" + g + "%) brightness(" + b + "%)";
+            hat.style.filter = "hue-rotate(" + r + "deg) saturate(" + g + "%) brightness(" + b + "%)";
+            cat.style.transform = "scale(" + s + ")";
+            hat.style.transform = "scale(" + s + ")";
+        }, 300);
+
+        function animate(time) {
+            if (lastTime != null) angle += (time - lastTime) * 0.001;
+            lastTime = time;
+            cat.style.top = (Math.sin(angle) * 40 + 40) + "px";
+            cat.style.left = (Math.cos(angle) * 100 + 230) + "px";
+            // Your extensions here.  (hat)
+            hat.style.top = (Math.cos(angle) * -40 + 40) + "px";
+            hat.style.left = (Math.sin(angle) * 100 + 600) + "px";
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    </script>
+</body>
+
+</html>
