@@ -36,7 +36,7 @@ h1 {
 }
 
 form {
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
@@ -127,4 +127,82 @@ td {
     font-size: 24px;
     font-weight: bold;
     text-align: right;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+img {
+    max-width: 15%;
+    height: auto;
+}
+
+h3,
+p {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-to-cart {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #3e8e41;
+}
+
+.remove-item-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.remove-item-button:hover {
+    background-color: #3e8e41;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
 }

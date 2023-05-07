@@ -6,77 +6,79 @@ const totalPrice = document.getElementById('total-price-value');
 let itemsInCart = [];
 
 function addItemToCart(itemName, itemPrice, itemQuantity) {
-    // Create a new cart item object
+    // 創建一個新的購物車項目
     const newItem = {
         name: itemName,
         price: itemPrice,
         quantity: itemQuantity
     };
 
-    // Check if the item already exists in the cart
+    // 檢查商品是否已存在於購物車中
     const existingItem = itemsInCart.find(item => item.name === itemName);
 
     if (existingItem) {
-        // If the item already exists in the cart, update its quantity
+        // 如果該商品已存在於購物車中，則更新其數量
         existingItem.quantity += itemQuantity;
     } else {
-        // Otherwise, add the new item to the cart
+        // 將新商品添加到購物車
         itemsInCart.push(newItem);
     }
 
-    // Update the cart HTML
+    // 更新購物車
     updateCartHtml();
 }
 
 function removeItemFromCart(itemName) {
-    // Find the item in the cart
+    // 在購物車中查找商品
     const index = itemsInCart.findIndex(item => item.name === itemName);
 
     if (index !== -1) {
-        // Remove the item from the cart array
+        // 從購物車中刪除項目
         itemsInCart.splice(index, 1);
 
-        // Update the cart HTML
+        // 更新購物車
         updateCartHtml();
     }
 }
 
 function updateItemQuantity(itemName, newQuantity) {
-    // Find the item in the cart
+    // 在購物車中查找商品
     const item = itemsInCart.find(item => item.name === itemName);
 
     if (item) {
-        // Update the item's quantity
+        // 更新項目的數量
         item.quantity = newQuantity;
 
-        // Update the cart HTML
+        // 更新購物車
         updateCartHtml();
     }
 }
 
 function updateCartHtml() {
-    // Clear the existing cart HTML
+    // 清除現有的購物車
     cartItems.innerHTML = '';
 
-    // Rebuild the cart HTML from scratch
+    // 從頭開始重構購物車
     itemsInCart.forEach(item => {
         const totalItemPrice = item.price * item.quantity;
 
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${item.name}</td>
-        <td>${item.price.toFixed(2)}</td>
-        <td>
-          <input type="number" class="item-quantity-input" value="${item.quantity}" min="1" />
-        </td>
-        <td>${totalItemPrice.toFixed(2)}</td>
-        <td>
-          <button class="remove-item-button" data-item-name="${item.name}">Remove</button>
-        </td>`;
+        row.innerHTML = `
+                    <td>${item.name}</td>
+                        <td>$${item.price}</td>
+                    <td>
+                        <input type="number" class="item-quantity-input" value="${item.quantity}" min="1" />
+                    </td>
+                    <td>$${totalItemPrice}</td>
+                    <td>
+                        <button class="remove-item-button" data-item-name="${item.name}">刪除</button>
+                    </td>
+                    `;
 
         const quantityInput = row.querySelector('.item-quantity-input');
         const removeButton = row.querySelector('.remove-item-button');
 
-        // Add event listeners to the quantity input and remove button
+        // 數量輸入和刪除按鈕添加事件監聽器
         quantityInput.addEventListener('input', event => {
             const newQuantity = parseInt(event.target.value);
             updateItemQuantity(item.name, newQuantity);
@@ -84,18 +86,20 @@ function updateCartHtml() {
 
         removeButton.addEventListener('click', event => {
             const itemName = event.target.getAttribute('data-item-name');
-            removeItemFromCart(itemName);
+            if (confirm(`確認要從購物車移除 ${itemName} ？`)) {
+                removeItemFromCart(itemName);
+            }
         });
 
         cartItems.appendChild(row);
     });
 
-    // Update the total price
+    // 更新總價
     const totalPriceValue = itemsInCart.reduce((total, item) => {
         return total + (item.price * item.quantity);
     }, 0);
 
-    totalPrice.textContent = `$${totalPriceValue.toFixed(2)}`;
+    totalPrice.textContent = `$${totalPriceValue}`;
 }
 
 form.addEventListener('submit', event => {
@@ -111,6 +115,8 @@ form.addEventListener('submit', event => {
 });
 
 clearCartButton.addEventListener('click', () => {
-    itemsInCart = [];
-    updateCartHtml();
+    if (confirm(`確認要清除購物車？`)) {
+        itemsInCart = [];
+        updateCartHtml();
+    }
 });
