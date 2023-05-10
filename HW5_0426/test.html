@@ -11,7 +11,7 @@
 <body>
     <div class="control">
         <div class="item">
-            <div class="active">登录</div>
+            <div class="active">登入</div>
             <div>注册</div>
         </div>
         <div class="content">
@@ -32,9 +32,6 @@
                 <p>登陆</p>
                 <input type="password" placeholder="password" name="use1" />
                 <span>请输入至少六位数的</span>
-                <p>邮箱</p>
-                <input type="text" placeholder="email" name="use1" />
-                <span>请输入邮箱账号</span>
                 <br />
                 <input type="submit" value="注册" />
             </div>
@@ -158,7 +155,6 @@
         console.log(span2)
         var userReg = /^[a-zA-Z][a-zA-Z0-9]{3,9}$/
         var telReg = /^[0-9a-zA-Z].{4,14}$/
-        var emailReg = /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@.com$)/
 
         for (let i = 0; i < it.length; i++) {
             it[i].onclick = function () {
@@ -194,8 +190,6 @@
 
         na1[1].oninput = () => cf(telReg, na1[1].value, span1[1], 'x 不符合规范', '√ 通过验证')
 
-        na1[2].oninput = () => cf(emailReg, na1[2].value, span1[2], 'x 邮箱书写不符合规范', '√ 通过验证')
-
         var arr = []
         zc.onclick = () => {
             flag = true
@@ -206,18 +200,8 @@
             else if (na1[1].value === '') {
                 span1[1].className = 'error'
                 return flag = false
-            }
-            else if (na1[2].value === '' || span1[2].className == 'error') {
-                span1[2].className = 'error'
-                return flag = false
             } else {
-                if (flag && na1[2].className != 'error') {
-
-                    // for (let i = 0; i < na1.length; i++) {
-                    //     // arr[i]=arr.push(na1[i].)
-                    //     console.log(arr[i])
-                    //     na1[i].value = ''                       
-                    // }
+                if (flag) {
                     alert('注册成功')
                 }
             }
