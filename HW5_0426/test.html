@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>login</title>
+    <!-- <link rel="stylesheet" type="text/css" href="pageChange.css" /> -->
+    <!-- <script src="pageChange.js"></script> -->
+</head>
+
+<body>
+    <div class="control">
+        <div class="item">
+            <div class="active">登录</div>
+            <div>注册</div>
+        </div>
+        <div class="content">
+            <div style="display: block;" class="box1">
+                <p>账号</p>
+                <input type="text" placeholder="username" name="use2" />
+                <span></span>
+                <p>注册</p>
+                <input type="password" placeholder="password" name="use2" />
+                <span></span>
+                <br />
+                <input type="submit" value="登录" />
+            </div>
+            <div class="box2">
+                <p>用户名</p>
+                <input type="text" placeholder="username" name="use1" />
+                <span>请输入以字母开头至少4位数用户名</span>
+                <p>登陆</p>
+                <input type="password" placeholder="password" name="use1" />
+                <span>请输入至少六位数的</span>
+                <p>邮箱</p>
+                <input type="text" placeholder="email" name="use1" />
+                <span>请输入邮箱账号</span>
+                <br />
+                <input type="submit" value="注册" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+
+    }
+
+    .cg {
+        color: greenyellow;
+        font-size: 14px;
+    }
+
+    body {
+        background: #f3f3f3;
+    }
+
+    .control {
+        width: 340px;
+        background: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 5px;
+    }
+
+    .item {
+        width: 340px;
+        height: 60px;
+        background: #eeeeee;
+    }
+
+    .item div {
+        width: 167px;
+        height: 60px;
+        display: inline-block;
+        color: black;
+        font-size: 18px;
+        text-align: center;
+        line-height: 60px;
+        cursor: pointer;
+    }
+
+    .content {
+        width: 100%;
+    }
+
+    .content div {
+        margin: 20px 30px;
+        display: none;
+        text-align: left;
+    }
+
+    p {
+        color: #4a4a4a;
+        margin-top: 30px;
+        margin-bottom: 6px;
+        font-size: 15px;
+    }
+
+    .content input[type="text"],
+    .content input[type="password"] {
+        width: 100%;
+        height: 40px;
+        border-radius: 3px;
+        border: 1px solid #adadad;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .content input[type="submit"] {
+        margin-top: 40px;
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        color: white;
+        border: 1px solid #adadad;
+        background: #00dd60;
+        cursor: pointer;
+        letter-spacing: 4px;
+        margin-bottom: 40px;
+    }
+
+    .active {
+        background: white;
+    }
+
+    .item div:hover {
+        background: #f6f6f6;
+    }
+</style>
+
+<script>
+
+    window.onload = function () {
+        var item = document.querySelectorAll(".item");
+        var it = item[0].querySelectorAll("div")
+        var content = document.querySelectorAll(".content");
+        var con = content[0].querySelectorAll("div");
+        var na1 = document.querySelectorAll('[name="use1"]')
+        var na2 = document.querySelectorAll('[name="use2"]')
+        var span1 = document.querySelectorAll('.box2 span')
+        var span2 = document.querySelectorAll('.box1 span')
+        var zc = document.querySelector('[value="注册"]')
+        var dl = document.querySelector('[value="登录"]')
+
+        console.log(span2)
+        var userReg = /^[a-zA-Z][a-zA-Z0-9]{3,9}$/
+        var telReg = /^[0-9a-zA-Z].{4,14}$/
+        var emailReg = /(^[a-zA-Z]\w{5,17}@((126|163)\.com|yeah\.net)$)|(^[1-9]\d{4,10}@.com$)/
+
+        for (let i = 0; i < it.length; i++) {
+            it[i].onclick = function () {
+                for (let j = 0; j < it.length; j++) {
+                    it[j].className = '';
+                    con[j].style.display = "none";
+                }
+                this.className = "active";
+                it[i].index = i;
+                con[i].style.display = "block";
+            }
+        }
+
+        var flag = false
+
+        // 封装
+        function cf(trr, srnr, index, str, str1) {
+            var a1 = trr.test(srnr)
+            if (!a1) {
+                index.className = 'error'
+                index.innerText = str
+                return true
+            } else {
+                index.className = 'cg'
+                index.innerText = str1
+                return false
+
+            }
+
+        }
+        // 正则验证
+        na1[0].oninput = () => cf(userReg, na1[0].value, span1[0], 'x 用户名不符合规范', '√ 通过验证')
+
+        na1[1].oninput = () => cf(telReg, na1[1].value, span1[1], 'x 不符合规范', '√ 通过验证')
+
+        na1[2].oninput = () => cf(emailReg, na1[2].value, span1[2], 'x 邮箱书写不符合规范', '√ 通过验证')
+
+        var arr = []
+        zc.onclick = () => {
+            flag = true
+            if (na1[0].value === '') {
+                span1[0].className = 'error'
+                return flag = false
+            }
+            else if (na1[1].value === '') {
+                span1[1].className = 'error'
+                return flag = false
+            }
+            else if (na1[2].value === '' || span1[2].className == 'error') {
+                span1[2].className = 'error'
+                return flag = false
+            } else {
+                if (flag && na1[2].className != 'error') {
+
+                    // for (let i = 0; i < na1.length; i++) {
+                    //     // arr[i]=arr.push(na1[i].)
+                    //     console.log(arr[i])
+                    //     na1[i].value = ''                       
+                    // }
+                    alert('注册成功')
+                }
+            }
+        }
+
+        dl.onclick = function () {
+            if (na1[0].value != na2[0].value || na1[0].value == '') {
+                span2[0].className = 'error'
+                span2[0].innerText = '用户名不一致'
+            } else {
+                span2[0].innerText = ''
+                span2[0].className = ''
+            }
+            if (na1[1].value === '' || na1[1].value != na2[1].value) {
+                span2[1].className = 'error'
+                span2[1].innerText = '错误'
+            } else {
+                span2[1].innerText = ''
+                span2[1].className = ''
+            }
+            if (flag) {
+                alert('登录成功')
+            }
+            else if (na1[0].value != na2[0].value && na1[1].value != na2[1].value) {
+
+                alert('账号不存在')
+            }
+        }
+    }
+</script>
