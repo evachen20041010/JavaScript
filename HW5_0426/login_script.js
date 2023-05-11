@@ -41,7 +41,6 @@ window.onload = function () {
             index.innerText = str1
             index.style.color = "green"
             return false
-
         }
     }
     // 註冊驗證
@@ -58,6 +57,12 @@ window.onload = function () {
         }
         else if (na1[1].value === '') {
             span1[1].className = 'error'
+            return flag = false
+        } else if (cf(userReg, na1[0].value, span1[0], 'x 不符合規範', '√ 通過驗證')){
+            alert('註冊失敗')
+            return flag = false
+        }else if (cf(telReg, na1[1].value, span1[1], 'x 不符合規範', '√ 通過驗證')){
+            alert('註冊失敗')
             return flag = false
         } else {
             if (flag) {
@@ -82,7 +87,10 @@ window.onload = function () {
         } else {
             if (flag) {
                 localStorage["user"] = na1[0].value;
+                alert('登入成功')
                 document.location.href = "index/index.html"
+            }else {
+                alert('該使用者不存在')
             }
         }
     }
