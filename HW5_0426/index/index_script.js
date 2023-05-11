@@ -5,6 +5,9 @@ const totalPrice = document.getElementById('total-price-value');
 
 let itemsInCart = [];
 
+var user = localStorage.getItem ("user");
+document.getElementById(["user"]).innerHTML = user + " 您好！";
+
 function addItemToCart(itemName, itemPrice, itemQuantity) {
     // 創建一個新的購物車項目
     const newItem = {
