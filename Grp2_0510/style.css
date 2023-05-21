@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.calendar {
+    display: flex;
+}
+
+.calendar .month {
+    flex: 1;
+}
+
+.calendar .month table {
+    width: 100%;
+    border-collapse: separate;
+}
+
+.calendar .month table th,
+.calendar .month table td {
+    text-align: center;
+    padding: 10px;
+    border-color:#a9b3ba;
+    border: none;
+}
+
+.calendar .month table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.calendar .month table td.has-class {
+    background-color: #d9edf7;
+    cursor: pointer;
+}
+
+.calendar .month table td.has-class:hover {
+    background-color: #a8dcf7;
+}
+
+.activities {
+    margin-top: 20px;
+}
+
+.activities .event {
+    margin-bottom: 10px;
+}
+
+.top-month {
+    border-radius: 10px 10px 0 0;
+    background-color: #849BB8;
+    color:#fff;
+    font-weight: bolder;
+    margin: 0px;
+}
+
+#currentMonth {
+    margin: 0px;
+    padding: 10px;
+}
+
+#prevBtn {
+    color: #fff;
+    background-color: #8b99a5;
+    border-color: #8b99a5;
+}
+
+#prevBtn:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#nextBtn {
+    color: #fff;
+    background-color: #8b99a5;
+    border-color: #8b99a5;
+}
+
+#nextBtn:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
