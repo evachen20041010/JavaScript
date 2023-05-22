@@ -83,7 +83,7 @@ function showActivities(day) {
     if (activities.length > 0) {
         activities.forEach(activity => {
             const activityDate = document.createElement("a");
-            activityDate.textContent = activity.date;      //課程活動日期
+            activityDate.textContent = activity.date + " ";      //課程活動日期
             const activityLink = document.createElement("a");
             activityLink.href = activity.link;
             activityLink.textContent = activity.activity;   //課程活動
@@ -161,7 +161,7 @@ function renderCalendar() {
                     if (activities.length > 0) {
                         activities.forEach(activity => {
                             const activityDate = document.createElement("a");
-                            activityDate.textContent = activity.date;      //課程活動日期
+                            activityDate.textContent = activity.date + " ";      //課程活動日期
                             const activityLink = document.createElement("a");
                             activityLink.href = activity.link;
                             activityLink.textContent = activity.activity;   //課程活動

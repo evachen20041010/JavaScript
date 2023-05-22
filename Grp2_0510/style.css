@@ -47,23 +47,24 @@ h2 {
 
 .activities {
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .activities .event {
     margin-bottom: 10px;
 }
 
-.top-month {
+.table-top {
     border-radius: 10px 10px 0 0;
     background-color: #849BB8;
     color: #fff;
-    font-weight: bolder;
     margin: 0px;
 }
 
 #currentMonth {
     margin: 0px;
     padding: 15px;
+    font-weight: bold;
 }
 
 #prevBtn {
@@ -92,4 +93,10 @@ h2 {
 
 .event {
     color: #000;
+}
+
+#activities-h2 {
+    margin: 0px;
+    padding: 15px;
+    font-weight: bold;
 }
