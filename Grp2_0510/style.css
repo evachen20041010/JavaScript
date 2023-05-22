@@ -37,12 +37,12 @@ h2 {
 }
 
 .calendar .month table td.has-class {
-    background-color: #d9edf7;
+    background-color: #C1CBD7;
     cursor: pointer;
 }
 
 .calendar .month table td.has-class:hover {
-    background-color: #a8dcf7;
+    background-color: #8DA3BD;
 }
 
 .activities {

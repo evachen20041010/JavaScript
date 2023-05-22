@@ -40,6 +40,8 @@ function generateTimetable(month, year) {
         week.push({ day: "" });
     }
 
+
+
     for (let date = startDateOfMonth; date <= endDateOfMonth; date.setDate(date.getDate() + 1)) {
         const day = date.getDate();
         const hasClass = courseActivities.some(activity => {
@@ -67,8 +69,8 @@ function generateTimetable(month, year) {
 
 // 顯示課程活動
 function showActivities(day) {
-    const activitiesDiv = document.getElementById("day-activities");
-    activitiesDiv.innerHTML = "";
+    const dayActivitiesDiv = document.getElementById("day-activities");
+    dayActivitiesDiv.innerHTML = "";
 
     const activities = courseActivities.filter(activity => {
         const activityDate = new Date(activity.date);
@@ -78,30 +80,39 @@ function showActivities(day) {
             activityDate.getDate() === day
         );
     });
-
     if (activities.length > 0) {
         activities.forEach(activity => {
+            const activityDate = document.createElement("a");
+            activityDate.textContent = activity.date;      //課程活動日期
             const activityLink = document.createElement("a");
             activityLink.href = activity.link;
-            activityLink.textContent = activity.activity;
+            activityLink.textContent = activity.activity;   //課程活動
             activityLink.target = "_blank";
-
             const activityDiv = document.createElement("div");
             activityDiv.className = "event";
 
+            activityDiv.appendChild(activityDate);
             activityDiv.appendChild(activityLink);
-            activitiesDiv.appendChild(activityDiv);
+            dayActivitiesDiv.appendChild(activityDiv);
         });
     } else {
-        const noActivityText = document.createElement("p");
-        noActivityText.textContent = "當天沒有課程活動";
-        activitiesDiv.appendChild(noActivityText);
+        const noActivityText = document.createElement("a");
+        noActivityText.textContent = "當天沒有課程活動";    //課程活動
+        dayActivitiesDiv.appendChild(noActivityText);
     }
 }
 
 // 渲染曆法
 function renderCalendar() {
     const calendarDiv = document.getElementById("calendar");
+    const monthActivitiesDiv = document.getElementById("month-activities");
+    try {
+        monthActivitiesDiv.querySelectorAll("div").forEach(div => {
+            div.remove();
+        });
+    } catch (e) {
+
+    }
     calendarDiv.innerHTML = "";
 
     const monthNames = [
@@ -136,7 +147,37 @@ function renderCalendar() {
             td.textContent = day.day !== "" ? day.day : "";
             if (day.day !== "") {
                 if (day.hasClass) {
+                    monthActivitiesDiv.innerHTML = "";
                     td.classList.add("has-class");
+
+                    const activities = courseActivities.filter(activity => {
+                        const activityDate = new Date(activity.date);
+                        return (
+                            activityDate.getFullYear() === currentYear &&
+                            activityDate.getMonth() === currentMonth
+                        );
+                    });
+
+                    if (activities.length > 0) {
+                        activities.forEach(activity => {
+                            const activityDate = document.createElement("a");
+                            activityDate.textContent = activity.date;      //課程活動日期
+                            const activityLink = document.createElement("a");
+                            activityLink.href = activity.link;
+                            activityLink.textContent = activity.activity;   //課程活動
+                            activityLink.target = "_blank";
+                            const activityDiv = document.createElement("div");
+                            activityDiv.className = "event";
+
+                            activityDiv.appendChild(activityDate);
+                            activityDiv.appendChild(activityLink);
+                            monthActivitiesDiv.appendChild(activityDiv);
+                        });
+                    } else {
+                        const noActivityText = document.createElement("a");
+                        noActivityText.textContent = "當天沒有課程活動";    //課程活動
+                        monthActivitiesDiv.appendChild(noActivityText);
+                    }
                 }
 
                 td.addEventListener("click", () => {
