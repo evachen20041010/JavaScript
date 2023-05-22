@@ -27,7 +27,7 @@ h2 {
 .calendar .month table td {
     text-align: center;
     padding: 10px;
-    border-color:#a9b3ba;
+    border-color: #a9b3ba;
     border: none;
 }
 
@@ -56,14 +56,14 @@ h2 {
 .top-month {
     border-radius: 10px 10px 0 0;
     background-color: #849BB8;
-    color:#fff;
+    color: #fff;
     font-weight: bolder;
     margin: 0px;
 }
 
 #currentMonth {
     margin: 0px;
-    padding: 10px;
+    padding: 15px;
 }
 
 #prevBtn {
@@ -88,4 +88,8 @@ h2 {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
+}
+
+.event {
+    color: #000;
 }

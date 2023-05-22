@@ -67,7 +67,7 @@ function generateTimetable(month, year) {
 
 // 顯示課程活動
 function showActivities(day) {
-    const activitiesDiv = document.getElementById("activities");
+    const activitiesDiv = document.getElementById("day-activities");
     activitiesDiv.innerHTML = "";
 
     const activities = courseActivities.filter(activity => {
