@@ -2,6 +2,19 @@ body {
     font-family: Arial, sans-serif;
 }
 
+header {
+    background-color: #5B799E;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 35px;
+    text-align: center;
+    font-weight: bolder;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 .container {
     margin-top: 20px;
 }
@@ -25,10 +38,15 @@ h2 {
 
 .calendar .month table th,
 .calendar .month table td {
+    background-color: white;
     text-align: center;
     padding: 10px;
     border-color: #a9b3ba;
     border: none;
+}
+
+.calendar .month table td:hover {
+    background-color: lightgray;
 }
 
 .calendar .month table th {
@@ -43,15 +61,38 @@ h2 {
 
 .calendar .month table td.has-class:hover {
     background-color: #8DA3BD;
+
+}
+
+.calendar .month table td.holiday {
+    background-color: #c5d7c1;
+    cursor: pointer;
+}
+
+.calendar .month table td.holiday:hover {
+    background-color: #acbd8d;
+}
+
+.calendar .month table td.quiz {
+    background-color: #d7c1d4;
+    cursor: pointer;
+}
+
+.calendar .month table td.quiz:hover {
+    background-color: #bd8db5;
 }
 
 .activities {
     margin-top: 20px;
     margin-bottom: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 .activities .event {
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .table-top {
@@ -71,24 +112,28 @@ h2 {
     color: #fff;
     background-color: #8b99a5;
     border-color: #8b99a5;
+    font-weight: bold;
 }
 
 #prevBtn:hover {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
+    font-weight: bold;
 }
 
 #nextBtn {
     color: #fff;
     background-color: #8b99a5;
     border-color: #8b99a5;
+    font-weight: bold;
 }
 
 #nextBtn:hover {
     color: #fff;
     background-color: #6c757d;
     border-color: #6c757d;
+    font-weight: bold;
 }
 
 .event {
@@ -99,4 +144,10 @@ h2 {
     margin: 0px;
     padding: 15px;
     font-weight: bold;
+}
+
+#currentPs td{
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 30px 10px 30px;
 }

@@ -2,26 +2,28 @@
 const startDate = new Date("2023/2/1");
 const endDate = new Date("2023/6/30");
 
+let cmonth = "";
+
 // 課程活動
 const courseActivities = [
-    { date: "2023/2/15", activity: "week1", link: "https://flipclass.stust.edu.tw/media/doc/164592" },
-    { date: "2023/2/22", activity: "week2", link: "https://flipclass.stust.edu.tw/media/doc/167625" },
-    { date: "2023/3/1", activity: "week3", link: "https://flipclass.stust.edu.tw/media/doc/168800" },
-    { date: "2023/3/8", activity: "week4", link: "https://flipclass.stust.edu.tw/media/doc/170942" },
-    { date: "2023/3/15", activity: "week5", link: "https://flipclass.stust.edu.tw/media/doc/172646" },
-    { date: "2023/3/22", activity: "week6", link: "https://flipclass.stust.edu.tw/media/doc/174210" },
-    { date: "2023/3/29", activity: "week7", link: "https://flipclass.stust.edu.tw/media/doc/176113" },
-    { date: "2023/4/5", activity: "week8(放假)", link: "" },
-    { date: "2023/4/12", activity: "week9(期中上機考)", link: "https://flipclass.stust.edu.tw/media/doc/176950" },
-    { date: "2023/4/19", activity: "week10", link: "https://flipclass.stust.edu.tw/media/doc/178356" },
-    { date: "2023/4/26", activity: "week11", link: "https://flipclass.stust.edu.tw/media/doc/179622" },
-    { date: "2023/5/3", activity: "week12", link: "https://flipclass.stust.edu.tw/media/doc/180792" },
-    { date: "2023/5/10", activity: "week13", link: "https://flipclass.stust.edu.tw/media/doc/180791" },
-    { date: "2023/5/17", activity: "week14", link: "https://flipclass.stust.edu.tw/media/doc/180790" },
-    { date: "2023/5/24", activity: "week15", link: "https://flipclass.stust.edu.tw/media/doc/180789" },
-    { date: "2023/5/31", activity: "week16(分組專題1)", link: "" },
-    { date: "2023/6/7", activity: "week17(分組專題2)", link: "" },
-    { date: "2023/6/14", activity: "week18(Final)", link: "" },
+    { date: "2023/02/15", activity: "week1", link: "https://flipclass.stust.edu.tw/media/doc/164592", ps: "has-class" },
+    { date: "2023/02/22", activity: "week2", link: "https://flipclass.stust.edu.tw/media/doc/167625", ps: "has-class" },
+    { date: "2023/03/01", activity: "week3", link: "https://flipclass.stust.edu.tw/media/doc/168800", ps: "has-class" },
+    { date: "2023/03/08", activity: "week4", link: "https://flipclass.stust.edu.tw/media/doc/170942", ps: "has-class" },
+    { date: "2023/03/15", activity: "week5", link: "https://flipclass.stust.edu.tw/media/doc/172646", ps: "has-class" },
+    { date: "2023/03/22", activity: "week6", link: "https://flipclass.stust.edu.tw/media/doc/174210", ps: "has-class" },
+    { date: "2023/03/29", activity: "week7", link: "https://flipclass.stust.edu.tw/media/doc/176113", ps: "has-class" },
+    { date: "2023/04/05", activity: "week8(放假)", link: "#", ps: "holiday" },
+    { date: "2023/04/12", activity: "week9(期中上機考)", link: "https://flipclass.stust.edu.tw/media/doc/176950", ps: "quiz" },
+    { date: "2023/04/19", activity: "week10", link: "https://flipclass.stust.edu.tw/media/doc/178356", ps: "has-class" },
+    { date: "2023/04/26", activity: "week11", link: "https://flipclass.stust.edu.tw/media/doc/179622", ps: "has-class" },
+    { date: "2023/05/03", activity: "week12", link: "https://flipclass.stust.edu.tw/media/doc/180792", ps: "has-class" },
+    { date: "2023/05/10", activity: "week13", link: "https://flipclass.stust.edu.tw/media/doc/180791", ps: "has-class" },
+    { date: "2023/05/17", activity: "week14", link: "https://flipclass.stust.edu.tw/media/doc/180790", ps: "has-class" },
+    { date: "2023/05/24", activity: "week15", link: "https://flipclass.stust.edu.tw/media/doc/180789", ps: "has-class" },
+    { date: "2023/05/31", activity: "week16(分組專題1)", link: "#", ps: "has-class" },
+    { date: "2023/06/07", activity: "week17(分組專題2)", link: "#", ps: "has-class" },
+    { date: "2023/06/14", activity: "week18(Final)", link: "#", ps: "has-class" },
 ];
 
 let currentMonth = startDate.getMonth();
@@ -39,8 +41,6 @@ function generateTimetable(month, year) {
     for (let i = 0; i < firstDayOfWeek; i++) {
         week.push({ day: "" });
     }
-
-
 
     for (let date = startDateOfMonth; date <= endDateOfMonth; date.setDate(date.getDate() + 1)) {
         const day = date.getDate();
@@ -97,7 +97,7 @@ function showActivities(day) {
         });
     } else {
         const noActivityText = document.createElement("a");
-        noActivityText.textContent = "當天沒有課程活動";    //課程活動
+        noActivityText.textContent = cmonth + day + "號當天沒有課程活動";    //課程活動
         dayActivitiesDiv.appendChild(noActivityText);
     }
 }
@@ -148,7 +148,6 @@ function renderCalendar() {
             if (day.day !== "") {
                 if (day.hasClass) {
                     monthActivitiesDiv.innerHTML = "";
-                    td.classList.add("has-class");
 
                     const activities = courseActivities.filter(activity => {
                         const activityDate = new Date(activity.date);
@@ -158,8 +157,12 @@ function renderCalendar() {
                         );
                     });
 
-                    if (activities.length > 0) {
-                        activities.forEach(activity => {
+                    activities.forEach(activity => {
+                        let date = activity.date[8] + activity.date[9]
+                        if (day.day == date) {
+                            td.className = activity.ps;
+                        }
+                        if (activities.length > 0) {
                             const activityDate = document.createElement("a");
                             activityDate.textContent = activity.date + " ";      //課程活動日期
                             const activityLink = document.createElement("a");
@@ -172,15 +175,15 @@ function renderCalendar() {
                             activityDiv.appendChild(activityDate);
                             activityDiv.appendChild(activityLink);
                             monthActivitiesDiv.appendChild(activityDiv);
-                        });
-                    } else {
-                        const noActivityText = document.createElement("a");
-                        noActivityText.textContent = "當天沒有課程活動";    //課程活動
-                        monthActivitiesDiv.appendChild(noActivityText);
-                    }
+                        } else {
+                            const noActivityText = document.createElement("a");
+                            noActivityText.textContent = "當天沒有課程活動";    //課程活動
+                            monthActivitiesDiv.appendChild(noActivityText);
+                        }
+                    });
                 }
 
-                td.addEventListener("click", () => {
+                td.addEventListener("mouseover", () => {
                     showActivities(day.day);
                 });
             }
@@ -195,6 +198,7 @@ function renderCalendar() {
     calendarDiv.appendChild(table);
 
     const currentMonthText = monthNames[currentMonth] + " " + currentYear;
+    cmonth = monthNames[currentMonth];
     document.getElementById("currentMonth").textContent = currentMonthText;
 }
 
@@ -217,6 +221,7 @@ function nextMonth() {
     }
     renderCalendar();
 }
+
 
 // 初始化月曆
 renderCalendar();
