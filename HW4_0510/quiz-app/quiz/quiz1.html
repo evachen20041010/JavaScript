@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quiz1</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="quiz-container" id="quiz">
+        <div class="quiz-header">
+            <h2 id="question">題目</h2>
+            <ul>
+                <li>
+                    <input type="radio" id="a" name="answer" class="answer" />
+                    <label id="a_text" for="a">選項 A</label>
+                </li>
+                <li>
+                    <input type="radio" id="b" name="answer" class="answer" />
+                    <label id="b_text" for="b">選項 B</label>
+                </li>
+                <li>
+                    <input type="radio" id="c" name="answer" class="answer" />
+                    <label id="c_text" for="c">選項 C</label>
+                </li>
+                <li>
+                    <input type="radio" id="d" name="answer" class="answer" />
+                    <label id="d_text" for="d">選項 D</label>
+                </li>
+            </ul>
+        </div>
+        <button id="submit">提交</button>
+    </div>
+    <script>
+        const quizData = [
+            {
+                question: "2019 年最常用的程式語言是？",
+                a: "Java",
+                b: "C",
+                c: "Python",
+                d: "JavaScript",
+                correct: "d",
+            },
+            {
+                question: "美國的總統是誰？",
+                a: "Florin Pop",
+                b: "Donald Trump",
+                c: "Ivan Saldano",
+                d: "Mihai Andrei",
+                correct: "b",
+            },
+            {
+                question: "HTML 代表什麼？",
+                a: "超文本標記語言",
+                b: "層疊樣式表",
+                c: "JSON（JavaScript Object Notation）",
+                d: "直升機終端機機動艇蘭博基尼",
+                correct: "a",
+            },
+            {
+                question: "JavaScript 是在哪一年推出的？",
+                a: "1996 年",
+                b: "1995 年",
+                c: "1994 年",
+                d: "以上皆非",
+                correct: "b",
+            },
+        ];
+
+        const quiz = document.getElementById("quiz");
+        const answerEls = document.querySelectorAll(".answer");
+        const questionEl = document.getElementById("question");
+        const a_text = document.getElementById("a_text");
+        const b_text = document.getElementById("b_text");
+        const c_text = document.getElementById("c_text");
+        const d_text = document.getElementById("d_text");
+        const submitBtn = document.getElementById("submit");
+
+        let currentQuiz = 0;
+        let score = 0;
+
+        loadQuiz();
+
+        function loadQuiz() {
+            deselectAnswers();
+
+            const currentQuizData = quizData[currentQuiz];
+
+            questionEl.innerText = currentQuizData.question;
+            a_text.innerText = currentQuizData.a;
+            b_text.innerText = currentQuizData.b;
+            c_text.innerText = currentQuizData.c;
+            d_text.innerText = currentQuizData.d;
+        }
+
+        function getSelected() {
+            let answer = undefined;
+
+            answerEls.forEach((answerEl) => {
+                if (answerEl.checked) {
+                    answer = answerEl.id;
+                }
+            });
+
+            return answer;
+        }
+
+        function deselectAnswers() {
+            answerEls.forEach((answerEl) => {
+                answerEl.checked = false;
+            });
+        }
+
+        submitBtn.addEventListener("click", () => {
+            // 檢查答案
+            const answer = getSelected();
+
+            if (answer) {
+                if (answer === quizData[currentQuiz].correct) {
+                    score++;
+                }
+
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    loadQuiz();
+                } else {
+                    quiz.innerHTML = `
+                <h2>你答對了 ${score}/${quizData.length} 題。</h2>
+                
+                <button onclick="window.location.href = '../index.html'">回到首頁</button>
+                <button onclick="location.reload()">重新開始</button>
+            `;
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>

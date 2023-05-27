@@ -1,0 +1,45 @@
+<!-- 參考：https://github.com/florinpop17/10-projects-10-hours/tree/master -->
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>倒數計時器</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <h1>倒數計時器</h1>
+
+    <p class="current-date" id="current-date"></p>
+
+    <div class="date-selector">
+        <label for="countdown-date">選擇要倒數的日期：</label>
+        <input type="date" id="countdown-date">
+        <button class="current-button" onclick="startCountdown()">開始倒數</button>
+    </div>
+
+    <div class="countdown-container">
+        <div class="countdown-el days-c">
+            <p class="big-text" id="days">0</p>
+            <span>天</span>
+        </div>
+        <div class="countdown-el hours-c">
+            <p class="big-text" id="hours">0</p>
+            <span>小時</span>
+        </div>
+        <div class="countdown-el mins-c">
+            <p class="big-text" id="mins">0</p>
+            <span>分鐘</span>
+        </div>
+        <div class="countdown-el seconds-c">
+            <p class="big-text" id="seconds">0</p>
+            <span>秒</span>
+        </div>
+    </div>
+</body>
+
+</html>
