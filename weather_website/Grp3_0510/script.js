@@ -1,13 +1,32 @@
-// 城市對照表，用於將英文城市名稱轉換為中文名稱
-var cityMap = {
-    "london": "倫敦",
-    "paris": "巴黎",
-    "newyork": "紐約",
-    "tokyo": "東京",
-    "beijing": "北京",
-    "sydney": "悉尼"
-    // 在這裡添加其他城市的對照
+const firebaseConfig = {
+    apiKey: "AIzaSyDMlFFqT8tdIVyxmYUf3-Tk-wn5Ft7IRSw",
+    authDomain: "weather-website-1b134.firebaseapp.com",
+    projectId: "weather-website-1b134",
+    storageBucket: "weather-website-1b134.appspot.com",
+    messagingSenderId: "670922277249",
+    appId: "1:670922277249:web:c713615cf36eb507bf2880",
+    measurementId: "G-YN43QGN4CQ"
 };
+
+firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+
+/*db.collection('users')
+    .add({
+        first: 'Dez',
+        last: 'Chuang',
+        gender: 'male'
+    })
+    .then(function (docRef) {
+        console.log('Document written with ID: ', docRef.id)
+    })
+    .catch(function (error) {
+        console.error('Error adding document: ', error)
+    })*/
+
+// 城市對照表，用於將英文城市名稱轉換為中文名稱
+var cityMap = {"london": "倫敦","paris": "巴黎","newyork": "紐約","tokyo": "東京","beijing": "北京",
+                "sydney": "悉尼", "taiwan": "台灣"};
 
 function searchCities() {
     var cityInput = document.getElementById("cityInput");
@@ -72,10 +91,21 @@ function getWeather() {
                     // 解析天氣數據
                     var temperature = data.main.temp - 273.15; // 將溫度轉換為攝氏溫度
                     var description = data.weather[0].description;
+                    var max = data.main.temp_max - 273.15;
+                    var min = data.main.temp_min - 273.15;
+                    var iconcode = data.weather[0].icon;
+                    var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
 
                     // 將天氣數據顯示在網頁上
-                    var resultElement = document.getElementById("result");
-                    resultElement.innerText = `城市：${getCityNameInChinese(selectedCity)}\n溫度：${temperature.toFixed(1)}℃\n天氣狀況：${description}`;
+                    var resultElement = document.getElementById("city");
+                    resultElement.innerText = `城市：${getCityNameInChinese(selectedCity)}`;
+                    var resultElement = document.getElementById("temp");
+                    resultElement.innerText = `溫度：${temperature.toFixed(1)}℃`;
+                    var resultElement = document.getElementById("description");
+                    resultElement.innerText = `天氣狀況：${description}`;
+                    var resultElement = document.getElementById("max_min");
+                    resultElement.innerText = `最高：${max.toFixed(1)}℃ 最低：${min.toFixed(1)}℃`;
+                    $('#wicon').attr('src',iconurl);
 
                     // 顯示 OpenStreetMap
                     showMap(data.coord.lat, data.coord.lon);
