@@ -90,14 +90,31 @@ function getWeather() {
 }
 
 function showMap(lat, lon) {
-    let zoom = 7; // 縮放 0 - 18
-    let center = [lat, lon]; // 中心點座標
+    const center = [lat, lon]; // 中心點座標
+    const zoom = 8; // 縮放 0 - 18
+    const map = L.map('map').setView(center, zoom);
+    const osmUri = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';    // 商用時必須要有版權出處
+    const attribution = '© OpenStreetMap';
 
-    //建立地圖
-    let map = L.map('map').setView(center, zoom);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap', // 商用時必須要有版權出處
-        zoomControl: true, // 是否秀出 - + 按鈕
+    // 主要地圖
+    L.tileLayer(osmUri, {
+        attribution: attribution,
+        zoomControl: true,  // 是否秀出 - + 按鈕
+    }).addTo(map);
+
+    // 小地圖
+    let miniWidth = 150, miniHeight = 150;;
+    if (document.body.clientWidth <= 640) {
+        miniWidth = 75;
+        miniHeight = 75;
+    }
+    const miniOSM = new L.TileLayer(osmUri, {
+        minZoom: zoom, maxZoom: 13,
+        attribution: attribution
+    });
+    const miniMap = new L.Control.MiniMap(miniOSM, {
+        width: miniWidth,
+        height: miniHeight,
     }).addTo(map);
 
     //放置 Marker
@@ -108,4 +125,49 @@ function showMap(lat, lon) {
 
     // 加上 Popup
     marker.bindPopup("<b>我在這裡！</b>").openPopup();
+
+    //Map 點擊事件
+    const popup = L.popup();
+    function onMapClick(e) {
+        let lat = e.latlng.lat; // 緯度
+        let lng = e.latlng.lng; // 經度
+        popup
+            .setLatLng(e.latlng)
+            .setContent(`緯度：${lat}<br/>經度：${lng}`)
+            .openOn(map);
+    }
+    map.on('click', onMapClick);
+
+    //改變地圖樣式
+    var baselayers = {
+        'OpenStreetMap.Mapnik': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'),
+        'OpenStreetMap.DE': L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'),
+        'OpenStreetMap.CH': L.tileLayer('https://tile.osm.ch/switzerland/{z}/{x}/{y}.png'),
+        'OpenStreetMap.France': L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png'),
+        'OpenStreetMap.HOT': L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'),
+        'OpenStreetMap.BZH': L.tileLayer('https://tile.openstreetmap.bzh/br/{z}/{x}/{y}.png'),
+        'OpenTopoMap': L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png')
+    };
+    var overlays = {};
+    L.control.layers(baselayers, overlays).addTo(map);
+    baselayers['OpenStreetMap.Mapnik'].addTo(map);
+
+    //定位使用者位置
+    L.control.locate({
+        position: 'topleft',
+        locateOptions: {
+            enableHighAccuracy: true
+        },
+        strings: {
+            title: '定位我的位置',
+            metersUnit: '公尺',
+            feetUnit: '英尺',
+            popup: '距離誤差：{distance}{unit}以內'
+        },
+        clickBehavior: {
+            inView: 'stop',
+            outOfView: 'setView',
+            inViewNotFollowing: 'inView'
+        }
+    }).addTo(map);
 }
