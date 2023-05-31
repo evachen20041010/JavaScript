@@ -112,7 +112,8 @@ function PrintWeather(selectedCity) {
             resultElement.innerText = `${description}`;
             var resultElement = document.getElementById("max_min");
             resultElement.innerText = `最高：${max.toFixed(1)}℃ 最低：${min.toFixed(1)}℃`;
-            $('#wicon').attr('src', iconurl);
+            //$('#wicon').attr('src', iconurl);
+            document.getElementById("wicon").src = iconurl;
 
             // 顯示 OpenStreetMap
             showMap(data.coord.lat, data.coord.lon);
