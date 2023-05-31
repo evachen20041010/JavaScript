@@ -126,7 +126,7 @@ function showMap(lat, lon) {
     const center = [lat, lon]; // 中心點座標
     const zoom = 8; // 縮放 0 - 18
     const map = L.map('map').setView(center, zoom);
-    const osmUri = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';    // 商用時必須要有版權出處
+    const osmUri = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';    // 版權出處
     const attribution = '© OpenStreetMap';
 
     // 主要地圖
