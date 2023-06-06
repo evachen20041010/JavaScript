@@ -13,6 +13,20 @@ var simpleLevelPlan = `
 // "." 代表空白區域，"#" 代表牆壁
 // "@" 代表玩家角色，"o" 代表硬幣
 
+// 定義角色圖片路徑
+const actorImages = {
+  player: [
+    'image/player/alex.png',
+    'image/player/steve.png'
+  ],
+  coin: [
+    'image/coin/apple.png',
+    'image/coin/bread.png',
+    'image/coin/cookie.png',
+    'image/coin/SweetBerries.png'
+  ]
+};
+
 var Level = class Level {
   constructor(plan) {
     // 移除空白字元，以換行符號拆分字串為陣列，並將每一行轉為字元陣列
@@ -89,7 +103,7 @@ var Player = class Player {
   }
 }
 
-Player.prototype.size = new Vec(1, 1);
+Player.prototype.size = new Vec(0.8, 0.8);
 
 // 硬幣角色類別
 var Coin = class Coin {
@@ -161,8 +175,8 @@ function drawGrid(level) {
 
 //角色圖片
 //Player.prototype.sprite = "image/steve.png";
-Player.prototype.sprite = "image/alex.png";
-Coin.prototype.sprite = "image/coin.png";
+Player.prototype.sprite = actorImages.player[0];
+Coin.prototype.sprite = actorImages.coin[Math.floor(Math.random() * (actorImages.coin.length - 1))];
 
 // 繪製角色
 function drawActors(actors) {
@@ -172,7 +186,7 @@ function drawActors(actors) {
     if (actor.type === "player") {
       rect.style.backgroundImage = `url(${actor.sprite})`;
       rect.style.backgroundSize = "cover";
-    }else if(actor.type ==="coin"){
+    } else if (actor.type === "coin") {
       rect.style.backgroundImage = `url(${actor.sprite})`;
       rect.style.backgroundSize = "cover";
     }
@@ -250,6 +264,8 @@ State.prototype.update = function (time, keys) {
 
   let player = newState.player;
 
+  viewScore(newState.actors.filter(a => a != this));
+
   for (let actor of actors) {
     if (actor != player && overlap(actor, player)) {
       newState = actor.collide(newState);
@@ -273,6 +289,32 @@ Coin.prototype.collide = function (state) {
   if (!filtered.some(a => a.type == "coin")) status = "won";
   return new State(state.level, filtered, status);
 };
+
+var sumzt = true;
+var scoresum = 0;
+var scorenow = 0;
+
+function viewScore(arr) {
+  scorenow = 0;
+
+  if (sumzt == true) {
+    scoresum = 0;
+  }
+
+  arr.forEach(once => {
+    if (once.type == "coin") {
+      scorenow++;
+    }
+  });
+
+  if (sumzt == true) {
+    scoresum = scorenow;
+  }
+
+  sumzt = false;
+
+  document.querySelector(".viewScore").innerHTML = `${scoresum - scorenow}/${scoresum}`;
+}
 
 var wobbleSpeed = 8, wobbleDist = 0.07;
 
@@ -342,7 +384,7 @@ function runAnimation(frameFunc) {
 
 //運行關卡
 function runLevel(level, Display) {
-  let display = new Display(document.body, level);
+  let display = new Display(document.querySelector(".scream"), level);
   let state = State.start(level);
   let ending = 1;
   return new Promise(resolve => {
@@ -363,12 +405,25 @@ function runLevel(level, Display) {
   });
 }
 
+
 //運行遊戲
 async function runGame(plans, Display) {
+  end = plans.length;
   for (let level = 0; level < plans.length;) {
-    let status = await runLevel(new Level(plans[level]),
-      Display);
-    if (status == "won") level++;
+    let status = await runLevel(new Level(plans[level]), Display);
+    if (status == "won") {
+      document.querySelector(".viewScore").innerHTML = "";
+      level++;
+      sumzt = true;
+    }
+    if (level == plans.length - 1) {
+      const button = document.createElement("button");
+
+      button.innerHTML = "Button";
+      document.body.appendChild(button);
+    }
   }
+  //runLevel(new Level(plans[plans.length-1]), Display);  //轉移到結束關卡
   console.log("You've won!");
 }
+

@@ -1,7 +1,14 @@
+html,
+body {
+  background-color: #b7e4c7;
+}
+
+
 .background {
-  background: rgb(52, 166, 251);
+  background-image: url("../image/grass.png");
   table-layout: fixed;
   border-spacing: 0;
+  opacity: 0.7;
 }
 
 .background td {
@@ -20,25 +27,31 @@
   position: absolute;
 }
 
-.coin {
-  /*background: rgb(241, 229, 89);*/
-}
-
 .player {
   background: rgb(64, 64, 64);
 }
 
 .game {
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 5%;
   overflow: hidden;
   max-width: 600px;
   max-height: 450px;
   position: relative;
 }
 
-.lost .player {
-  background: rgb(160, 64, 64);
-}
-
 .won .player {
   box-shadow: -4px -7px 8px white, 4px -7px 8px white;
+}
+
+.viewScore {
+  text-align: center;
+}
+
+.scream {
+  margin-top: 10%;
+  margin-left: 20%;
+  max-width: 600px;
+  max-height: 450px;
 }
