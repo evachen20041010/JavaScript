@@ -91,9 +91,6 @@ var Player = class Player {
 
 Player.prototype.size = new Vec(1, 1);
 
-//角色圖片
-Player.prototype.sprite = "image/steve.png";
-
 // 硬幣角色類別
 var Coin = class Coin {
   constructor(pos, basePos, wobble) {
@@ -113,7 +110,7 @@ var Coin = class Coin {
   }
 }
 
-Coin.prototype.size = new Vec(0.6, 0.6);
+Coin.prototype.size = new Vec(1.2, 1.2);
 
 // 定義關卡角色的對應關係
 var levelChars = {
@@ -162,12 +159,20 @@ function drawGrid(level) {
   ));
 }
 
+//角色圖片
+//Player.prototype.sprite = "image/steve.png";
+Player.prototype.sprite = "image/alex.png";
+Coin.prototype.sprite = "image/coin.png";
+
 // 繪製角色
 function drawActors(actors) {
   return elt("div", {}, ...actors.map(actor => {
     let rect = elt("div", { class: `actor ${actor.type}` });
 
     if (actor.type === "player") {
+      rect.style.backgroundImage = `url(${actor.sprite})`;
+      rect.style.backgroundSize = "cover";
+    }else if(actor.type ==="coin"){
       rect.style.backgroundImage = `url(${actor.sprite})`;
       rect.style.backgroundSize = "cover";
     }
