@@ -25,7 +25,7 @@ header h1 {
     height: 550px;
 }
 
-.btn {
+#search {
     cursor: pointer;
     font-weight: bold;
     background-color: #8DA3BD;
@@ -35,7 +35,7 @@ header h1 {
     transition: background-color 0.3s;
 }
 
-.btn:hover {
+#search:hover {
     background-color: #a8b8cc;
 }
 

@@ -13,7 +13,7 @@ firebase.initializeApp(firebaseConfig)
 var db = firebase.firestore();
 
 var user = localStorage.getItem ("user");
-document.getElementById(["user"]).innerHTML = user + " 您好！";
+document.getElementById(["user"]).innerHTML = user;
 
 
 // 城市對照表，用於將英文城市名稱轉換為中文名稱
