@@ -7,14 +7,15 @@ header {
     background-color: #5B799E;
     color: #fff;
     margin-bottom: 40px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 header h1 {
     font-size: 35px;
     text-align: center;
     font-weight: bolder;
+    margin-bottom: 0px;
 }
 
 #result {
@@ -64,27 +65,47 @@ header h1 {
     transform: translate(-50%, -50%);
 }
 
-#city{
+#city {
     font-size: 40px;
 }
 
-#temp{
+#temp {
     font-size: 50px;
 }
 
-#description{
+#description {
     padding-top: 5px;
     font-size: 20px;
 }
 
-#max_min{
+#max_min {
     font-size: 20px;
 }
 
-#alink{
+#alink {
     color: #fff;
     transition: background-color 0.3s;
 }
-#alink:hover{
+
+#alink:hover {
     background-color: #C1CBD7;
+}
+
+.btn-danger,
+.btn {
+    background-color: #5B799E;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 0px;
+}
+
+.btn-danger:hover,
+.btn:hover {
+    background-color: #7397c2;
+}
+
+.btn-danger:active,
+.btn:active {
+    background-color: #7397c2;
 }

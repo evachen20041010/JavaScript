@@ -17,11 +17,14 @@ window.onload = function () {
     var content = document.querySelectorAll(".content");
     var con = content[0].querySelectorAll("div");
     var na1 = document.querySelectorAll('[name="use1"]');
-    var na2 = document.querySelectorAll('[name="use2"]');
     var span1 = document.querySelectorAll('.box2 span');
     var span2 = document.querySelectorAll('.box1 span');
-    var zc = document.querySelector('[value="註冊"]');
-    var dl = document.querySelector('[value="登入"]');
+    var zc = document.querySelector('[value="修改"]');
+
+    var user = localStorage.getItem("user");
+    var ps = localStorage.getItem("password");
+    na1[0].value = user;
+    na1[1].value = ps;
 
     console.log(span2)
     var userReg = /^[0-9a-zA-Z].{3,9}$/;
@@ -72,75 +75,26 @@ window.onload = function () {
             span1[1].className = 'error';
             return flag = false;
         } else if (cf(userReg, na1[0].value, span1[0], 'x 不符合規範', '√ 通過驗證')) {
-            alert('註冊失敗');
+            alert('修改失敗');
             return flag = false;
         } else if (cf(telReg, na1[1].value, span1[1], 'x 不符合規範', '√ 通過驗證')) {
-            alert('註冊失敗');
+            alert('修改失敗');
             return flag = false;
         } else {
             if (flag) {
-                var ref = db.collection('signup').doc(na1[0].value);
-
-                ref.get().then(doc => {
-                    if (na1[0].value == doc.data().name) {
-                        alert('使用者名稱已被使用');
-                        return;
-                    } else {
-                        ref.set({
-                            name: na1[0].value,
-                            password: na1[1].value
-                        })
-                            .then(function () {
-                                console.log('set data successful');
-                            })
-                            .catch(function (error) {
-                                console.error('Error adding document: ', error)
-                            })
-                        alert('註冊成功');
-                    }
-                });
+                var ref = db.collection('signup').doc(user);
+                ref.set({
+                    name: na1[0].value,
+                    password: na1[1].value
+                })
+                    .then(function () {
+                        console.log('set data successful');
+                    })
+                    .catch(function (error) {
+                        console.error('Error adding document: ', error)
+                    })
+                alert('修改成功');
             }
         }
-    }
-
-    dl.onclick = function () {
-        span2[0].innerText = '';
-        span2[0].className = '';
-        span2[1].innerText = '';
-        span2[1].className = '';
-        /*if (na1[0].value != na2[0].value && na1[1].value != na2[1].value) {
-            alert('該使用者不存在');
-        } else if (na1[0].value != na2[0].value || na1[0].value == '') {
-            span2[0].className = 'error';
-            span2[0].innerText = '使用者名稱不一致';
-        } else if (na1[1].value === '' || na1[1].value != na2[1].value) {
-            span2[1].className = 'error';
-            span2[1].innerText = '密碼不正確';
-        } else {
-            if (flag) {
-                //let storage = localStorage.getItem(key);
-                alert('登入成功');
-                //alert(storage);
-                document.location.href = "index/index.html";
-            } else {
-                alert('該使用者不存在');
-            }
-        }*/
-
-        var db = firebase.firestore();
-        var ref = db.collection('signup').doc(na2[0].value);
-
-        ref.get().then(doc => {
-            if (na2[1].value == doc.data().password) {
-                localStorage["user"] = na2[0].value;
-                localStorage["password"] = na2[1].value;
-
-                alert("登入成功");
-                document.location.href = "index/index.html";
-            } else {
-                alert('使用者名稱或密碼不正確');
-                return;
-            }
-        });
     }
 }
