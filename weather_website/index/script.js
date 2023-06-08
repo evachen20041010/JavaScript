@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 var db = firebase.firestore();
 
-var user = localStorage.getItem ("user");
+var user = localStorage.getItem("user");
 document.getElementById(["user"]).innerHTML = user;
 
 
@@ -21,6 +21,23 @@ var cityMap = {
     "london": "倫敦", "paris": "巴黎", "newyork": "紐約", "tokyo": "東京", "beijing": "北京",
     "sydney": "悉尼", "taiwan": "台灣"
 };
+
+document.querySelectorAll(".dropdown-menu .dropdown-item")[2].addEventListener("click", function () {
+    localStorage.clear();
+});
+
+document.querySelectorAll(".dropdown-menu .dropdown-item")[1].addEventListener("click", function () {
+
+    var ref = db.collection('signup').doc(user);
+
+    db.collection('signup')
+        .doc(user)
+        .delete()
+        .then((function () {
+            alert("帳號刪除成功");
+            document.location.href = "../login.html";
+        }))
+});
 
 function searchCities() {
     var cityInput = document.getElementById("cityInput");

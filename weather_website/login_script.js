@@ -82,21 +82,28 @@ window.onload = function () {
                 var ref = db.collection('signup').doc(na1[0].value);
 
                 ref.get().then(doc => {
-                    if (na1[0].value == doc.data().name) {
-                        alert('使用者名稱已被使用');
-                        return;
-                    } else {
+
+                    try {
+                        if (na1[0].value == doc.data().name) {
+                            alert("使用者名稱已被註冊");
+                            return;
+                        }
+                    } catch (e) {
                         ref.set({
                             name: na1[0].value,
                             password: na1[1].value
                         })
                             .then(function () {
                                 console.log('set data successful');
+                                localStorage["user"] = na1[0].value;
+                                localStorage["password"] = na1[1].value;
+                                document.location.href = "index/index.html";
+
+                                alert('註冊成功');
                             })
                             .catch(function (error) {
                                 console.error('Error adding document: ', error)
                             })
-                        alert('註冊成功');
                     }
                 });
             }
@@ -127,17 +134,18 @@ window.onload = function () {
             }
         }*/
 
-        var db = firebase.firestore();
         var ref = db.collection('signup').doc(na2[0].value);
 
         ref.get().then(doc => {
-            if (na2[1].value == doc.data().password) {
-                localStorage["user"] = na2[0].value;
-                localStorage["password"] = na2[1].value;
+            try {
+                if (na2[1].value == doc.data().password) {
+                    localStorage["user"] = na2[0].value;
+                    localStorage["password"] = na2[1].value;
 
-                alert("登入成功");
-                document.location.href = "index/index.html";
-            } else {
+                    alert("登入成功");
+                    document.location.href = "index/index.html";
+                }
+            } catch (e) {
                 alert('使用者名稱或密碼不正確');
                 return;
             }
